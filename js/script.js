@@ -117,7 +117,7 @@
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -126,6 +126,16 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	
+	var _Ground = __webpack_require__(3);
+	
+	var _Ground2 = _interopRequireDefault(_Ground);
+	
+	var _Player = __webpack_require__(4);
+	
+	var _Player2 = _interopRequireDefault(_Player);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -152,6 +162,20 @@
 			value: function create() {
 				this.game.physics.startSystem(Phaser.Physics.ARCADE);
 				this.game.stage.backgroundColor = '#67A5D7';
+	
+				this.ground = new _Ground2.default(this.game, 0, 200, 'ground');
+				this.add.existing(this.ground);
+	
+				this.player = new _Player2.default(this.game, 40, 100, 'player');
+				this.add.existing(this.player);
+			}
+		}, {
+			key: 'update',
+			value: function update() {
+				var collision = this.game.physics.arcade.collide(this.player, this.ground);
+				if (collision) {
+					console.log('collide');
+				};
 			}
 		}]);
 	
@@ -159,6 +183,85 @@
 	})(Phaser.State);
 	
 	exports.default = Play;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Ground = (function (_Phaser$Sprite) {
+		_inherits(Ground, _Phaser$Sprite);
+	
+		function Ground(game, x, y) {
+			_classCallCheck(this, Ground);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Ground).call(this, game, x, y, 'ground'));
+	
+			_this.game.physics.arcade.enableBody(_this);
+			_this.body.immovable = true;
+	
+			_this.checkWorldBounds = true;
+			_this.outOfBoundsKill = true;
+	
+			_this.body.velocity.x = -140;
+			return _this;
+		}
+	
+		return Ground;
+	})(Phaser.Sprite);
+	
+	exports.default = Ground;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Player = (function (_Phaser$Sprite) {
+		_inherits(Player, _Phaser$Sprite);
+	
+		function Player(game, x, y) {
+			_classCallCheck(this, Player);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Player).call(this, game, x, y, 'player'));
+	
+			_this.game.physics.arcade.enableBody(_this);
+	
+			// this.body.gravity.y = 1000;
+	
+			_this.body.immovable = true;
+	
+			_this.checkWorldBounds = true;
+			_this.outOfBoundsKill = true;
+			return _this;
+		}
+	
+		return Player;
+	})(Phaser.Sprite);
+	
+	exports.default = Player;
 
 /***/ }
 /******/ ]);
