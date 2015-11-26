@@ -169,20 +169,24 @@
 				this.game.physics.startSystem(Phaser.Physics.ARCADE);
 				this.cursors = this.game.input.keyboard.createCursorKeys();
 	
-				this.timer = this.game.time.create(false);
-				this.timer.loop(1500, this.initPlatform, this);
-				this.timer.start();
+				// this.timer = this.game.time.create(false);
+				// this.timer.loop(1500, this.initPlatform, this);
+				// this.timer.start();
 	
 				this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 				this.background.autoScroll(-140, 0);
 	
+				this.platforms = this.game.add.group();
+	
 				this.initGround();
 				this.initPlayer();
+				this.initPlatform();
 			}
 		}, {
 			key: 'update',
 			value: function update() {
 				this.game.physics.arcade.collide(this.player, this.ground);
+				this.game.physics.arcade.collide(this.player, this.platform);
 	
 				if (this.player.body.wasTouching.down) {
 					console.log('touching');
@@ -190,6 +194,11 @@
 				} else {
 					this.player.body.velocity.x = 0;
 				}
+	
+				// KEYBOARD CONTROLS
+				if (this.cursors.up.isDown && this.player.body.wasTouching.down) {
+					this.player.body.velocity.y = -450;
+				};
 			}
 		}, {
 			key: 'initPlatform',
@@ -199,7 +208,7 @@
 				platformY = this.game.rnd.integerInRange(200, 80);
 	
 				this.platform = new _Platform2.default(this.game, 480, platformY, 'platform');
-				this.add.existing(this.platform);
+				// this.add.existing(this.platform);
 			}
 		}, {
 			key: 'initGround',
@@ -286,10 +295,8 @@
 			_this.game.physics.arcade.enableBody(_this);
 			_this.anchor.setTo(0.5, 0.5);
 	
-			_this.body.gravity.y = 500;
+			_this.body.gravity.y = 1000;
 	
-			_this.checkWorldBounds = true;
-			_this.outOfBoundsKill = true;
 			return _this;
 		}
 	
@@ -323,8 +330,6 @@
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Platform).call(this, game, x, y, 'platform'));
 	
 			_this.game.physics.arcade.enableBody(_this);
-			// this.body.gravity.y = 1000;
-	
 			_this.body.velocity.x = -140;
 	
 			_this.body.immovable = true;

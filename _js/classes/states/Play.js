@@ -9,21 +9,24 @@ export default class Play extends Phaser.State{
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
-		this.timer = this.game.time.create(false);
-		this.timer.loop(1500, this.initPlatform, this);
-		this.timer.start();
+		// this.timer = this.game.time.create(false);
+		// this.timer.loop(1500, this.initPlatform, this);
+		// this.timer.start();
 
 		this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 		this.background.autoScroll(-140, 0);
 
+		this.platforms = this.game.add.group();
 
 		this.initGround();
 		this.initPlayer();
+		this.initPlatform();
 
 
 	}
 	update(){
 		this.game.physics.arcade.collide(this.player, this.ground);
+		this.game.physics.arcade.collide(this.player, this.platform);
 
 		if (this.player.body.wasTouching.down){
 			console.log('touching');
@@ -32,6 +35,14 @@ export default class Play extends Phaser.State{
 			this.player.body.velocity.x = 0;
 		}
 
+
+
+
+		// KEYBOARD CONTROLS
+		if (this.cursors.up.isDown && this.player.body.wasTouching.down) {
+			this.player.body.velocity.y = -450;
+		};
+
 	}
 	initPlatform(){
 		let platformY;
@@ -39,7 +50,10 @@ export default class Play extends Phaser.State{
 		platformY = this.game.rnd.integerInRange(200, 80);
 
 		this.platform = new Platform(this.game, 480, platformY, 'platform');
-		this.add.existing(this.platform);
+		// this.add.existing(this.platform);
+
+		
+
 
 	}
 	initGround(){
