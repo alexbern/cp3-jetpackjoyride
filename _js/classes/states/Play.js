@@ -1,5 +1,6 @@
 import Ground from '../objects/Ground';
 import Player from '../objects/Player';
+import Platform from '../objects/Platform';
 
 export default class Play extends Phaser.State{
 	preload(){
@@ -13,6 +14,9 @@ export default class Play extends Phaser.State{
 
 		this.player = new Player(this.game, 40, 100, 'player');
 		this.add.existing(this.player);
+
+		this.platform = new Platform(this.game, 480, 180, 'platform');
+		this.add.existing(this.platform);
 	}
 	update(){
 		let collision = this.game.physics.arcade.collide(this.player, this.ground);

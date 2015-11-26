@@ -135,6 +135,10 @@
 	
 	var _Player2 = _interopRequireDefault(_Player);
 	
+	var _Platform = __webpack_require__(5);
+	
+	var _Platform2 = _interopRequireDefault(_Platform);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -168,6 +172,9 @@
 	
 				this.player = new _Player2.default(this.game, 40, 100, 'player');
 				this.add.existing(this.player);
+	
+				this.platform = new _Platform2.default(this.game, 480, 180, 'platform');
+				this.add.existing(this.platform);
 			}
 		}, {
 			key: 'update',
@@ -248,8 +255,7 @@
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Player).call(this, game, x, y, 'player'));
 	
 			_this.game.physics.arcade.enableBody(_this);
-	
-			// this.body.gravity.y = 1000;
+			_this.anchor.setTo(0.5, 0.5);
 	
 			_this.body.immovable = true;
 	
@@ -262,6 +268,47 @@
 	})(Phaser.Sprite);
 	
 	exports.default = Player;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Platform = (function (_Phaser$Sprite) {
+		_inherits(Platform, _Phaser$Sprite);
+	
+		function Platform(game, x, y) {
+			_classCallCheck(this, Platform);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Platform).call(this, game, x, y, 'platform'));
+	
+			_this.game.physics.arcade.enableBody(_this);
+			// this.body.gravity.y = 1000;
+	
+			_this.body.velocity.x = -140;
+	
+			_this.body.immovable = true;
+	
+			_this.checkWorldBounds = true;
+			_this.outOfBoundsKill = true;
+			return _this;
+		}
+	
+		return Platform;
+	})(Phaser.Sprite);
+	
+	exports.default = Platform;
 
 /***/ }
 /******/ ]);
