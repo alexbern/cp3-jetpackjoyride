@@ -173,8 +173,9 @@
 				this.player = new _Player2.default(this.game, 40, 100, 'player');
 				this.add.existing(this.player);
 	
-				this.platform = new _Platform2.default(this.game, 480, 180, 'platform');
-				this.add.existing(this.platform);
+				this.timer = this.game.time.create(false);
+				this.timer.loop(1500, this.createPlatform, this);
+				this.timer.start();
 			}
 		}, {
 			key: 'update',
@@ -183,6 +184,17 @@
 				if (collision) {
 					console.log('collide');
 				};
+			}
+		}, {
+			key: 'createPlatform',
+			value: function createPlatform() {
+				console.log('create platform');
+				var platformY = undefined;
+	
+				platformY = this.game.rnd.integerInRange(200, 80);
+	
+				this.platform = new _Platform2.default(this.game, 480, platformY, 'platform');
+				this.add.existing(this.platform);
 			}
 		}]);
 	
