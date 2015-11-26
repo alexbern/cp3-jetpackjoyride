@@ -7,7 +7,7 @@ export default class Play extends Phaser.State{
 		console.log('play preload');
 	}create(){
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
-
+		this.cursors = this.game.input.keyboard.createCursorKeys();
 
 		this.timer = this.game.time.create(false);
 		this.timer.loop(1500, this.initPlatform, this);
@@ -23,12 +23,17 @@ export default class Play extends Phaser.State{
 
 	}
 	update(){
-		let collision = this.game.physics.arcade.collide(this.player, this.ground);
-		if (collision) {console.log('collide')};
+		this.game.physics.arcade.collide(this.player, this.ground);
+
+		if (this.player.body.wasTouching.down){
+			console.log('touching');
+			this.player.body.velocity.x = 140;
+		}else{
+			this.player.body.velocity.x = 0;
+		}
 
 	}
 	initPlatform(){
-		console.log('create platform');
 		let platformY;
 
 		platformY = this.game.rnd.integerInRange(200, 80);

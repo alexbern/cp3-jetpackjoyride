@@ -167,6 +167,7 @@
 			key: 'create',
 			value: function create() {
 				this.game.physics.startSystem(Phaser.Physics.ARCADE);
+				this.cursors = this.game.input.keyboard.createCursorKeys();
 	
 				this.timer = this.game.time.create(false);
 				this.timer.loop(1500, this.initPlatform, this);
@@ -181,15 +182,18 @@
 		}, {
 			key: 'update',
 			value: function update() {
-				var collision = this.game.physics.arcade.collide(this.player, this.ground);
-				if (collision) {
-					console.log('collide');
-				};
+				this.game.physics.arcade.collide(this.player, this.ground);
+	
+				if (this.player.body.wasTouching.down) {
+					console.log('touching');
+					this.player.body.velocity.x = 140;
+				} else {
+					this.player.body.velocity.x = 0;
+				}
 			}
 		}, {
 			key: 'initPlatform',
 			value: function initPlatform() {
-				console.log('create platform');
 				var platformY = undefined;
 	
 				platformY = this.game.rnd.integerInRange(200, 80);
@@ -282,7 +286,7 @@
 			_this.game.physics.arcade.enableBody(_this);
 			_this.anchor.setTo(0.5, 0.5);
 	
-			_this.body.immovable = true;
+			_this.body.gravity.y = 500;
 	
 			_this.checkWorldBounds = true;
 			_this.outOfBoundsKill = true;
