@@ -101,6 +101,8 @@
 				this.load.image('ground', 'assets/sprites/ground.jpg');
 				this.load.image('platform', 'assets/sprites/platform.jpg');
 	
+				this.load.image('background', 'assets/sprites/bg.png');
+	
 				this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
 			}
 		}, {
@@ -165,17 +167,16 @@
 			key: 'create',
 			value: function create() {
 				this.game.physics.startSystem(Phaser.Physics.ARCADE);
-				this.game.stage.backgroundColor = '#67A5D7';
-	
-				this.ground = new _Ground2.default(this.game, 0, 200, 'ground');
-				this.add.existing(this.ground);
-	
-				this.player = new _Player2.default(this.game, 40, 100, 'player');
-				this.add.existing(this.player);
 	
 				this.timer = this.game.time.create(false);
-				this.timer.loop(1500, this.createPlatform, this);
+				this.timer.loop(1500, this.initPlatform, this);
 				this.timer.start();
+	
+				this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
+				this.background.autoScroll(-140, 0);
+	
+				this.initGround();
+				this.initPlayer();
 			}
 		}, {
 			key: 'update',
@@ -186,8 +187,8 @@
 				};
 			}
 		}, {
-			key: 'createPlatform',
-			value: function createPlatform() {
+			key: 'initPlatform',
+			value: function initPlatform() {
 				console.log('create platform');
 				var platformY = undefined;
 	
@@ -195,6 +196,18 @@
 	
 				this.platform = new _Platform2.default(this.game, 480, platformY, 'platform');
 				this.add.existing(this.platform);
+			}
+		}, {
+			key: 'initGround',
+			value: function initGround() {
+				this.ground = new _Ground2.default(this.game, 0, 200, 'ground');
+				this.add.existing(this.ground);
+			}
+		}, {
+			key: 'initPlayer',
+			value: function initPlayer() {
+				this.player = new _Player2.default(this.game, 40, 100, 'player');
+				this.add.existing(this.player);
 			}
 		}]);
 	

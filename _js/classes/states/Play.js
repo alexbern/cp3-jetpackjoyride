@@ -7,17 +7,19 @@ export default class Play extends Phaser.State{
 		console.log('play preload');
 	}create(){
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
-		this.game.stage.backgroundColor = '#67A5D7';
 
-		this.ground = new Ground(this.game, 0, 200, 'ground');
-		this.add.existing(this.ground);
-
-		this.player = new Player(this.game, 40, 100, 'player');
-		this.add.existing(this.player);
 
 		this.timer = this.game.time.create(false);
-		this.timer.loop(1500, this.createPlatform, this);
+		this.timer.loop(1500, this.initPlatform, this);
 		this.timer.start();
+
+		this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
+		this.background.autoScroll(-140, 0);
+
+
+		this.initGround();
+		this.initPlayer();
+
 
 	}
 	update(){
@@ -25,7 +27,7 @@ export default class Play extends Phaser.State{
 		if (collision) {console.log('collide')};
 
 	}
-	createPlatform(){
+	initPlatform(){
 		console.log('create platform');
 		let platformY;
 
@@ -34,5 +36,13 @@ export default class Play extends Phaser.State{
 		this.platform = new Platform(this.game, 480, platformY, 'platform');
 		this.add.existing(this.platform);
 
+	}
+	initGround(){
+		this.ground = new Ground(this.game, 0, 200, 'ground');
+		this.add.existing(this.ground);
+	}
+	initPlayer(){
+		this.player = new Player(this.game, 40, 100, 'player');
+		this.add.existing(this.player);
 	}
 }
