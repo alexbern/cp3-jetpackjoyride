@@ -97,7 +97,7 @@
 		_createClass(Preload, [{
 			key: 'preload',
 			value: function preload() {
-				this.load.image('player', 'assets/sprites/player.jpg');
+				this.load.spritesheet('player', 'assets/sprites/player.png', 29, 34, 2);
 				this.load.image('ground', 'assets/sprites/ground.jpg');
 				this.load.image('platform', 'assets/sprites/platform.jpg');
 	
@@ -169,9 +169,9 @@
 				this.game.physics.startSystem(Phaser.Physics.ARCADE);
 				this.cursors = this.game.input.keyboard.createCursorKeys();
 	
-				// this.timer = this.game.time.create(false);
-				// this.timer.loop(1500, this.initPlatform, this);
-				// this.timer.start();
+				this.timer = this.game.time.create(false);
+				this.timer.loop(1500, this.initPlatform, this);
+				this.timer.start();
 	
 				this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 				this.background.autoScroll(-140, 0);
@@ -208,7 +208,7 @@
 				platformY = this.game.rnd.integerInRange(200, 80);
 	
 				this.platform = new _Platform2.default(this.game, 480, platformY, 'platform');
-				// this.add.existing(this.platform);
+				this.add.existing(this.platform);
 			}
 		}, {
 			key: 'initGround',
@@ -297,6 +297,8 @@
 	
 			_this.body.gravity.y = 1000;
 	
+			_this.animations.add('run');
+			_this.animations.play('run', 10, true);
 			return _this;
 		}
 	

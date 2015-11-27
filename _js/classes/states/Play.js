@@ -9,9 +9,9 @@ export default class Play extends Phaser.State{
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 
-		// this.timer = this.game.time.create(false);
-		// this.timer.loop(1500, this.initPlatform, this);
-		// this.timer.start();
+		this.timer = this.game.time.create(false);
+		this.timer.loop(1500, this.initPlatform, this);
+		this.timer.start();
 
 		this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 		this.background.autoScroll(-140, 0);
@@ -50,7 +50,7 @@ export default class Play extends Phaser.State{
 		platformY = this.game.rnd.integerInRange(200, 80);
 
 		this.platform = new Platform(this.game, 480, platformY, 'platform');
-		// this.add.existing(this.platform);
+		this.add.existing(this.platform);
 
 		
 
