@@ -294,8 +294,8 @@
 	
 			_this.body.gravity.y = 1000;
 	
-			_this.animations.add('run');
-			_this.animations.play('run', 10, true);
+			_this.animations.add('run', [0, 1], 10, true);
+			_this.animations.play('run');
 	
 			_this.jumpCount = 0;
 			_this.jumpkey = _this.game.input.keyboard.addKey(Phaser.Keyboard.UP);

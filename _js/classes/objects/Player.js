@@ -9,8 +9,8 @@ export default class Player extends Phaser.Sprite{
 		
 		this.body.gravity.y = 1000;
 		
-		this.animations.add('run');
-		this.animations.play('run', 10, true);
+		this.animations.add('run', [0, 1], 10, true);
+		this.animations.play('run');
 
 		this.jumpCount = 0;
 		this.jumpkey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
