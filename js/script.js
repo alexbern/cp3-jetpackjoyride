@@ -167,7 +167,6 @@
 			key: 'create',
 			value: function create() {
 				this.game.physics.startSystem(Phaser.Physics.ARCADE);
-				this.cursors = this.game.input.keyboard.createCursorKeys();
 	
 				this.timer = this.game.time.create(false);
 				this.timer.loop(1500, this.initPlatform, this);
@@ -189,16 +188,10 @@
 				this.game.physics.arcade.collide(this.player, this.platform);
 	
 				if (this.player.body.wasTouching.down) {
-					console.log('touching');
 					this.player.body.velocity.x = 140;
 				} else {
 					this.player.body.velocity.x = 0;
 				}
-	
-				// KEYBOARD CONTROLS
-				if (this.cursors.up.isDown && this.player.body.wasTouching.down) {
-					this.player.body.velocity.y = -450;
-				};
 			}
 		}, {
 			key: 'initPlatform',
@@ -274,6 +267,8 @@
 
 	'use strict';
 	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
@@ -292,6 +287,8 @@
 	
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Player).call(this, game, x, y, 'player'));
 	
+			_this.cursors = _this.game.input.keyboard.createCursorKeys();
+	
 			_this.game.physics.arcade.enableBody(_this);
 			_this.anchor.setTo(0.5, 0.5);
 	
@@ -299,8 +296,29 @@
 	
 			_this.animations.add('run');
 			_this.animations.play('run', 10, true);
+	
+			_this.doubleJump = 0;
+	
 			return _this;
 		}
+	
+		_createClass(Player, [{
+			key: 'update',
+			value: function update() {
+	
+				// KEYBOARD CONTROLS
+				if (this.cursors.up.isDown && this.body.wasTouching.down) {
+					this.body.velocity.y = -330;
+					console.log('down');
+				}
+	
+				if (this.body.wasTouching.down) {
+					this.doubleJump = 0;
+				};
+	
+				console.log(this.doubleJump);
+			}
+		}]);
 	
 		return Player;
 	})(Phaser.Sprite);
