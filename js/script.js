@@ -297,7 +297,9 @@
 			_this.animations.add('run');
 			_this.animations.play('run', 10, true);
 	
-			_this.doubleJump = 0;
+			_this.jumpCount = 0;
+			_this.jumpkey = _this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
+			_this.jumpkey.onDown.add(_this.jumpCheck, _this);
 	
 			return _this;
 		}
@@ -305,18 +307,17 @@
 		_createClass(Player, [{
 			key: 'update',
 			value: function update() {
-	
-				// KEYBOARD CONTROLS
-				if (this.cursors.up.isDown && this.body.wasTouching.down) {
-					this.body.velocity.y = -330;
-					console.log('down');
-				}
-	
 				if (this.body.wasTouching.down) {
-					this.doubleJump = 0;
+					this.jumpCount = 0;
 				};
-	
-				console.log(this.doubleJump);
+			}
+		}, {
+			key: 'jumpCheck',
+			value: function jumpCheck() {
+				if (this.jumpCount < 1) {
+					this.body.velocity.y = -350;
+					this.jumpCount++;
+				};
 			}
 		}]);
 	
