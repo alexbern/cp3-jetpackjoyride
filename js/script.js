@@ -177,6 +177,8 @@
 	
 				this.platforms = this.game.add.group();
 	
+				this.deadStatus = 0;
+	
 				this.initGround();
 				this.initPlayer();
 				this.initPlatform();
@@ -196,6 +198,15 @@
 				if (this.player.y > 320) {
 					this.playerDead();
 				};
+	
+				if (this.deadStatus == 0) {
+					console.log('alive');
+					this.platform.body.velocity.x = -140;
+				} else {
+					this.platform.body.velocity.x = 0;
+					this.background.autoScroll(0, 0);
+					console.log('dead');
+				}
 			}
 		}, {
 			key: 'initPlatform',
@@ -221,9 +232,7 @@
 		}, {
 			key: 'playerDead',
 			value: function playerDead() {
-				// this.background.autoScroll(0, 0);
-				// this.platform.body.velocity.x = 0;
-				console.log('You are dead!');
+				this.deadStatus = 1;
 			}
 		}]);
 	
@@ -361,7 +370,7 @@
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Platform).call(this, game, x, y, 'platform'));
 	
 			_this.game.physics.arcade.enableBody(_this);
-			_this.body.velocity.x = -140;
+			// this.body.velocity.x = -140;
 	
 			_this.body.immovable = true;
 	

@@ -17,6 +17,8 @@ export default class Play extends Phaser.State{
 
 		this.platforms = this.game.add.group();
 
+		this.deadStatus = 0;
+
 		this.initGround();
 		this.initPlayer();
 		this.initPlatform();
@@ -36,6 +38,14 @@ export default class Play extends Phaser.State{
 			this.playerDead();
 		};
 
+		if (this.deadStatus == 0){
+			console.log('alive');
+			this.platform.body.velocity.x = -140;
+		}else{
+			this.platform.body.velocity.x = 0;
+			this.background.autoScroll(0, 0);
+			console.log('dead');
+		}
 	}
 	initPlatform(){
 		let platformY;
@@ -55,9 +65,7 @@ export default class Play extends Phaser.State{
 		this.add.existing(this.player);
 	}
 	playerDead(){
-		// this.background.autoScroll(0, 0);
-		// this.platform.body.velocity.x = 0;
-		console.log('You are dead!');
+		this.deadStatus = 1;
 	}
 
 }
