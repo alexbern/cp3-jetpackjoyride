@@ -21,11 +21,10 @@ export default class Play extends Phaser.State{
 		this.initPlayer();
 		this.initPlatform();
 
-
 	}
 	update(){
 		this.game.physics.arcade.collide(this.player, this.ground);
-		this.game.physics.arcade.collide(this.player, this.platform);
+		this.game.physics.arcade.collide(this.player, this.platforms);
 
 		if (this.player.body.wasTouching.down){
 			this.player.body.velocity.x = 140;
@@ -33,16 +32,17 @@ export default class Play extends Phaser.State{
 			this.player.body.velocity.x = 0;
 		}
 
+		if (this.player.y > 320){
+			this.playerDead();
+		};
+
 	}
 	initPlatform(){
 		let platformY;
 
 		platformY = this.game.rnd.integerInRange(200, 80);
-
 		this.platform = new Platform(this.game, 480, platformY, 'platform');
-		this.add.existing(this.platform);
-
-		
+		this.platforms.add(this.platform);
 
 
 	}
@@ -54,4 +54,10 @@ export default class Play extends Phaser.State{
 		this.player = new Player(this.game, 40, 100, 'player');
 		this.add.existing(this.player);
 	}
+	playerDead(){
+		// this.background.autoScroll(0, 0);
+		// this.platform.body.velocity.x = 0;
+		console.log('You are dead!');
+	}
+
 }
