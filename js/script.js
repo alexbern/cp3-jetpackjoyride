@@ -54,6 +54,14 @@
 	
 	var _Play2 = _interopRequireDefault(_Play);
 	
+	var _Menu = __webpack_require__(6);
+	
+	var _Menu2 = _interopRequireDefault(_Menu);
+	
+	var _Credits = __webpack_require__(7);
+	
+	var _Credits2 = _interopRequireDefault(_Credits);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var game = undefined;
@@ -62,6 +70,8 @@
 		game = new Phaser.Game(480, 320, Phaser.AUTO);
 	
 		game.state.add('Preload', _Preload2.default, true);
+		game.state.add('Menu', _Menu2.default, false);
+		game.state.add('Credits', _Credits2.default, false);
 		game.state.add('Play', _Play2.default, false);
 	};
 	
@@ -108,7 +118,7 @@
 		}, {
 			key: 'onLoadComplete',
 			value: function onLoadComplete() {
-				this.game.state.start('Play');
+				this.game.state.start('Menu');
 			}
 		}]);
 	
@@ -380,6 +390,136 @@
 	})(Phaser.Sprite);
 	
 	exports.default = Platform;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Menu = (function (_Phaser$State) {
+	    _inherits(Menu, _Phaser$State);
+	
+	    function Menu() {
+	        _classCallCheck(this, Menu);
+	
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Menu).apply(this, arguments));
+	    }
+	
+	    _createClass(Menu, [{
+	        key: "create",
+	        value: function create() {
+	            console.log("menu create");
+	            this.game.stage.backgroundColor = '272822';
+	
+	            var start = this.game.add.text(100, 100, "start", {
+	                font: "20px Arial",
+	                fill: "#fff",
+	                align: "center"
+	            });
+	
+	            var credits = this.game.add.text(200, 100, "credits", {
+	                font: "20px Arial",
+	                fill: "#fff",
+	                align: "center"
+	            });
+	
+	            start.inputEnabled = true;
+	            start.events.onInputDown.add(this.startClick, this);
+	
+	            credits.inputEnabled = true;
+	            credits.events.onInputDown.add(this.creditsClick, this);
+	
+	            //this.input.onDown.add(this.startClick, text);
+	        }
+	    }, {
+	        key: "startClick",
+	        value: function startClick() {
+	            this.game.state.start('Play');
+	        }
+	    }, {
+	        key: "creditsClick",
+	        value: function creditsClick() {
+	            this.game.state.start('Credits');
+	        }
+	    }]);
+	
+	    return Menu;
+	})(Phaser.State);
+	
+	exports.default = Menu;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Credits = (function (_Phaser$State) {
+	    _inherits(Credits, _Phaser$State);
+	
+	    function Credits() {
+	        _classCallCheck(this, Credits);
+	
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Credits).apply(this, arguments));
+	    }
+	
+	    _createClass(Credits, [{
+	        key: "create",
+	        value: function create() {
+	            console.log("Credits");
+	            this.game.stage.backgroundColor = '272822';
+	
+	            var credits = this.game.add.text(100, 100, "here are the credits ....", {
+	                font: "20px Arial",
+	                fill: "#fff",
+	                align: "center"
+	            });
+	
+	            var start = this.game.add.text(100, 200, "start the game", {
+	                font: "20px Arial",
+	                fill: "#fff",
+	                align: "center"
+	            });
+	
+	            start.inputEnabled = true;
+	            start.events.onInputDown.add(this.startClick, this);
+	        }
+	    }, {
+	        key: "startClick",
+	        value: function startClick() {
+	            this.game.state.start('Play');
+	        }
+	    }]);
+	
+	    return Credits;
+	})(Phaser.State);
+	
+	exports.default = Credits;
 
 /***/ }
 /******/ ]);
