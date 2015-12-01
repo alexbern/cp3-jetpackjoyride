@@ -183,6 +183,8 @@
 				this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 				this.background.autoScroll(-this.speed, 0);
 	
+				this.text = this.game.add.text(350, 20, 'score: 0', { font: "15px Arial", fill: "#ffffff", align: "center" });
+	
 				this.platforms = this.game.add.group();
 	
 				this.timer = this.game.time.create(false);
@@ -200,8 +202,10 @@
 				this.game.physics.arcade.collide(this.player, this.platforms);
 	
 				this.score++;
+				//this.text.setText('score: ' + this.game.time.totalElapsedSeconds());
+				this.text.setText('score: ' + this.score);
 	
-				console.log(this.speed);
+				//console.log(this.speed);
 	
 				// this.speed = this.speed + this.score/2000;
 	
@@ -421,16 +425,10 @@
 	    _createClass(Menu, [{
 	        key: "create",
 	        value: function create() {
-	            console.log("menu create");
 	            this.game.stage.backgroundColor = '272822';
 	
+	            //START KNOP
 	            var start = this.game.add.text(100, 100, "start", {
-	                font: "20px Arial",
-	                fill: "#fff",
-	                align: "center"
-	            });
-	
-	            var credits = this.game.add.text(200, 100, "credits", {
 	                font: "20px Arial",
 	                fill: "#fff",
 	                align: "center"
@@ -439,10 +437,15 @@
 	            start.inputEnabled = true;
 	            start.events.onInputDown.add(this.startClick, this);
 	
+	            //CREDITS KNOP
+	            var credits = this.game.add.text(200, 100, "credits", {
+	                font: "20px Arial",
+	                fill: "#fff",
+	                align: "center"
+	            });
+	
 	            credits.inputEnabled = true;
 	            credits.events.onInputDown.add(this.creditsClick, this);
-	
-	            //this.input.onDown.add(this.startClick, text);
 	        }
 	    }, {
 	        key: "startClick",

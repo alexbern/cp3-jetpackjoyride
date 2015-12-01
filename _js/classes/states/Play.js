@@ -5,7 +5,8 @@ import Platform from '../objects/Platform';
 export default class Play extends Phaser.State{
 	preload(){
 
-	}create(){
+	}
+	create(){
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		this.score = 0;
@@ -14,6 +15,8 @@ export default class Play extends Phaser.State{
 
 		this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 		this.background.autoScroll(-this.speed, 0);
+
+		this.text = this.game.add.text(350, 20, 'score: 0', { font: "15px Arial", fill: "#ffffff", align: "center" });
 
 		this.platforms = this.game.add.group();
 
@@ -31,8 +34,10 @@ export default class Play extends Phaser.State{
 		this.game.physics.arcade.collide(this.player, this.platforms);
 
 		this.score++;
+		//this.text.setText('score: ' + this.game.time.totalElapsedSeconds());
+		this.text.setText('score: ' + this.score);
 
-		console.log(this.speed);
+		//console.log(this.speed);
 
 		// this.speed = this.speed + this.score/2000;
 
@@ -59,8 +64,6 @@ export default class Play extends Phaser.State{
 		platformY = this.game.rnd.integerInRange(200, 80);
 		this.platform = new Platform(this.game, 480, platformY, 'platform');
 		this.platforms.add(this.platform);
-
-
 	}
 	initGround(){
 		this.ground = new Ground(this.game, 0, 200, 'ground');
