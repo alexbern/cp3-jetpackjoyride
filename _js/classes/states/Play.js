@@ -4,20 +4,22 @@ import Platform from '../objects/Platform';
 
 export default class Play extends Phaser.State{
 	preload(){
-		console.log('play preload');
+
 	}create(){
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
+		this.score = 0;
+		this.deadStatus = 0;
+		this.speed = 140;
+
+		this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
+		this.background.autoScroll(-this.speed, 0);
+
+		this.platforms = this.game.add.group();
 
 		this.timer = this.game.time.create(false);
 		this.timer.loop(1500, this.initPlatform, this);
 		this.timer.start();
-
-		this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
-		this.background.autoScroll(-140, 0);
-
-		this.platforms = this.game.add.group();
-
-		this.deadStatus = 0;
 
 		this.initGround();
 		this.initPlayer();
@@ -28,23 +30,27 @@ export default class Play extends Phaser.State{
 		this.game.physics.arcade.collide(this.player, this.ground);
 		this.game.physics.arcade.collide(this.player, this.platforms);
 
+		this.score++;
+
+		console.log(this.speed);
+
+		// this.speed = this.speed + this.score/2000;
+
 		if (this.player.body.wasTouching.down){
-			this.player.body.velocity.x = 140;
+			this.player.body.velocity.x = this.speed;
 		}else{
 			this.player.body.velocity.x = 0;
 		}
 
 		if (this.player.y > 320){
-			this.playerDead();
+			this.deadStatus = 1;
 		};
 
 		if (this.deadStatus == 0){
-			console.log('alive');
-			this.platform.body.velocity.x = -140;
+			this.platform.body.velocity.x = -this.speed;
 		}else{
 			this.platform.body.velocity.x = 0;
 			this.background.autoScroll(0, 0);
-			console.log('dead');
 		}
 	}
 	initPlatform(){
@@ -58,14 +64,12 @@ export default class Play extends Phaser.State{
 	}
 	initGround(){
 		this.ground = new Ground(this.game, 0, 200, 'ground');
+		this.ground.body.velocity.x = -this.speed;
 		this.add.existing(this.ground);
 	}
 	initPlayer(){
 		this.player = new Player(this.game, 40, 100, 'player');
 		this.add.existing(this.player);
-	}
-	playerDead(){
-		this.deadStatus = 1;
 	}
 
 }

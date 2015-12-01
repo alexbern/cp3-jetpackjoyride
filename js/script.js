@@ -160,24 +160,24 @@
 	
 		_createClass(Play, [{
 			key: 'preload',
-			value: function preload() {
-				console.log('play preload');
-			}
+			value: function preload() {}
 		}, {
 			key: 'create',
 			value: function create() {
 				this.game.physics.startSystem(Phaser.Physics.ARCADE);
 	
-				this.timer = this.game.time.create(false);
-				this.timer.loop(1500, this.initPlatform, this);
-				this.timer.start();
+				this.score = 0;
+				this.deadStatus = 0;
+				this.speed = 140;
 	
 				this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
-				this.background.autoScroll(-140, 0);
+				this.background.autoScroll(-this.speed, 0);
 	
 				this.platforms = this.game.add.group();
 	
-				this.deadStatus = 0;
+				this.timer = this.game.time.create(false);
+				this.timer.loop(1500, this.initPlatform, this);
+				this.timer.start();
 	
 				this.initGround();
 				this.initPlayer();
@@ -189,23 +189,27 @@
 				this.game.physics.arcade.collide(this.player, this.ground);
 				this.game.physics.arcade.collide(this.player, this.platforms);
 	
+				this.score++;
+	
+				console.log(this.speed);
+	
+				// this.speed = this.speed + this.score/2000;
+	
 				if (this.player.body.wasTouching.down) {
-					this.player.body.velocity.x = 140;
+					this.player.body.velocity.x = this.speed;
 				} else {
 					this.player.body.velocity.x = 0;
 				}
 	
 				if (this.player.y > 320) {
-					this.playerDead();
+					this.deadStatus = 1;
 				};
 	
 				if (this.deadStatus == 0) {
-					console.log('alive');
-					this.platform.body.velocity.x = -140;
+					this.platform.body.velocity.x = -this.speed;
 				} else {
 					this.platform.body.velocity.x = 0;
 					this.background.autoScroll(0, 0);
-					console.log('dead');
 				}
 			}
 		}, {
@@ -221,6 +225,7 @@
 			key: 'initGround',
 			value: function initGround() {
 				this.ground = new _Ground2.default(this.game, 0, 200, 'ground');
+				this.ground.body.velocity.x = -this.speed;
 				this.add.existing(this.ground);
 			}
 		}, {
@@ -228,11 +233,6 @@
 			value: function initPlayer() {
 				this.player = new _Player2.default(this.game, 40, 100, 'player');
 				this.add.existing(this.player);
-			}
-		}, {
-			key: 'playerDead',
-			value: function playerDead() {
-				this.deadStatus = 1;
 			}
 		}]);
 	
@@ -270,8 +270,6 @@
 	
 			_this.checkWorldBounds = true;
 			_this.outOfBoundsKill = true;
-	
-			_this.body.velocity.x = -140;
 			return _this;
 		}
 	
@@ -370,7 +368,6 @@
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Platform).call(this, game, x, y, 'platform'));
 	
 			_this.game.physics.arcade.enableBody(_this);
-			// this.body.velocity.x = -140;
 	
 			_this.body.immovable = true;
 	

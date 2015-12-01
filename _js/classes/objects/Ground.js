@@ -7,7 +7,5 @@ export default class Ground extends Phaser.Sprite{
 
 		this.checkWorldBounds = true; 
 		this.outOfBoundsKill = true;
-
-		this.body.velocity.x = -140;
 	}
 }
