@@ -109,7 +109,7 @@
 			value: function preload() {
 				this.load.spritesheet('player', 'assets/sprites/player.png', 29, 34, 2);
 				this.load.image('ground', 'assets/sprites/ground.jpg');
-				this.load.image('platform', 'assets/sprites/platform.jpg');
+				this.load.image('platform', 'assets/sprites/platform.png');
 	
 				this.load.image('background', 'assets/sprites/bg.png');
 	
