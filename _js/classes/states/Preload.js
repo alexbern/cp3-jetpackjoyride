@@ -9,7 +9,7 @@ export default class Preload extends Phaser.State{
 		this.load.image('logo', 'assets/sprites/logo.png');
 		this.load.image('highscore', 'assets/sprites/bhighscore.jpg');
 		this.load.image('play', 'assets/sprites/bplay.jpg');
-		this.load.image('tutorial', 'assets/sprites/btutorial.jpg');
+		this.load.image('playagain', 'assets/sprites/bplayagain.png');
 		this.load.image('back', 'assets/sprites/bback.jpg');
 
 		this.load.image('gameover', 'assets/sprites/gameover.png');
