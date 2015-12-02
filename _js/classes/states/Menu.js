@@ -1,26 +1,15 @@
 export default class Menu extends Phaser.State{
     create(){
-        this.game.stage.backgroundColor = '272822';
+        this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
+        this.background.autoScroll(-15, 0);
 
+        this.title = this.game.add.sprite(70,50,'logo');
+
+        this.game.add.tween(this.title).to({y:60}, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true); 
+        
         //START KNOP
-            let start = this.game.add.text(100, 100, "start", {
-                font: "20px Arial",
-                fill: "#fff",
-                align: "center"
-            });
-
-            start.inputEnabled = true;
-            start.events.onInputDown.add(this.startClick, this);
-
-        //CREDITS KNOP
-            let credits = this.game.add.text(200, 100, "credits", {
-                font: "20px Arial",
-                fill: "#fff",
-                align: "center"
-            });
-
-            credits.inputEnabled = true;
-            credits.events.onInputDown.add(this.creditsClick, this);    
+        this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this); 
+        this.highscoreButton = this.game.add.button(260, 240, 'highscore', this.creditsClick, this);    
     }
 
     startClick() { 

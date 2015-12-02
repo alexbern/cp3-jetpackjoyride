@@ -113,6 +113,10 @@
 	
 				this.load.image('background', 'assets/sprites/bg.png');
 	
+				this.load.image('logo', 'assets/sprites/logo.png');
+				this.load.image('highscore', 'assets/sprites/bhighscore.jpg');
+				this.load.image('play', 'assets/sprites/bplay.jpg');
+	
 				this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
 			}
 		}, {
@@ -247,7 +251,7 @@
 		}, {
 			key: 'initPlayer',
 			value: function initPlayer() {
-				this.player = new _Player2.default(this.game, 40, 100, 'player');
+				this.player = new _Player2.default(this.game, 100, 100, 'player');
 				this.add.existing(this.player);
 			}
 		}]);
@@ -401,7 +405,7 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
@@ -425,37 +429,26 @@
 	    }
 	
 	    _createClass(Menu, [{
-	        key: "create",
+	        key: 'create',
 	        value: function create() {
-	            this.game.stage.backgroundColor = '272822';
+	            this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
+	            this.background.autoScroll(-15, 0);
+	
+	            this.title = this.game.add.sprite(70, 50, 'logo');
+	
+	            this.game.add.tween(this.title).to({ y: 60 }, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
 	
 	            //START KNOP
-	            var start = this.game.add.text(100, 100, "start", {
-	                font: "20px Arial",
-	                fill: "#fff",
-	                align: "center"
-	            });
-	
-	            start.inputEnabled = true;
-	            start.events.onInputDown.add(this.startClick, this);
-	
-	            //CREDITS KNOP
-	            var credits = this.game.add.text(200, 100, "credits", {
-	                font: "20px Arial",
-	                fill: "#fff",
-	                align: "center"
-	            });
-	
-	            credits.inputEnabled = true;
-	            credits.events.onInputDown.add(this.creditsClick, this);
+	            this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this);
+	            this.highscoreButton = this.game.add.button(260, 240, 'highscore', this.creditsClick, this);
 	        }
 	    }, {
-	        key: "startClick",
+	        key: 'startClick',
 	        value: function startClick() {
 	            this.game.state.start('Play');
 	        }
 	    }, {
-	        key: "creditsClick",
+	        key: 'creditsClick',
 	        value: function creditsClick() {
 	            this.game.state.start('Credits');
 	        }
@@ -496,8 +489,8 @@
 	    _createClass(Credits, [{
 	        key: "create",
 	        value: function create() {
-	            console.log("Credits");
-	            this.game.stage.backgroundColor = '272822';
+	            this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
+	            this.background.autoScroll(-15, 0);
 	
 	            var credits = this.game.add.text(100, 100, "here are the credits ....", {
 	                font: "20px Arial",

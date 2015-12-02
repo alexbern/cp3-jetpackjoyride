@@ -1,7 +1,7 @@
 export default class Credits extends Phaser.State{
     create(){
-        console.log("Credits")
-        this.game.stage.backgroundColor = '272822';
+        this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
+        this.background.autoScroll(-15, 0);
 
         let credits = this.game.add.text(100, 100, "here are the credits ....", {
             font: "20px Arial",

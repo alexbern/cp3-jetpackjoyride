@@ -74,7 +74,7 @@ export default class Play extends Phaser.State{
 		this.add.existing(this.ground);
 	}
 	initPlayer(){
-		this.player = new Player(this.game, 40, 100, 'player');
+		this.player = new Player(this.game, 100, 100, 'player');
 		this.add.existing(this.player);
 	}
 
