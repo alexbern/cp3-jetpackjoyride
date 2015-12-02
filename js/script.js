@@ -116,6 +116,8 @@
 				this.load.image('logo', 'assets/sprites/logo.png');
 				this.load.image('highscore', 'assets/sprites/bhighscore.jpg');
 				this.load.image('play', 'assets/sprites/bplay.jpg');
+				this.load.image('tutorial', 'assets/sprites/btutorial.jpg');
+				this.load.image('back', 'assets/sprites/bback.jpg');
 	
 				this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
 			}
@@ -434,9 +436,9 @@
 	            this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 	            this.background.autoScroll(-15, 0);
 	
-	            this.title = this.game.add.sprite(70, 50, 'logo');
+	            this.title = this.game.add.sprite(70, 40, 'logo');
 	
-	            this.game.add.tween(this.title).to({ y: 60 }, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
+	            this.game.add.tween(this.title).to({ y: 50 }, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
 	
 	            //START KNOP
 	            this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this);
@@ -498,19 +500,19 @@
 	                align: "center"
 	            });
 	
-	            var start = this.game.add.text(100, 200, "start the game", {
-	                font: "20px Arial",
-	                fill: "#fff",
-	                align: "center"
-	            });
-	
-	            start.inputEnabled = true;
-	            start.events.onInputDown.add(this.startClick, this);
+	            //START KNOP
+	            this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this);
+	            this.backButton = this.game.add.button(260, 240, 'back', this.backClick, this);
 	        }
 	    }, {
 	        key: "startClick",
 	        value: function startClick() {
 	            this.game.state.start('Play');
+	        }
+	    }, {
+	        key: "backClick",
+	        value: function backClick() {
+	            this.game.state.start('Menu');
 	        }
 	    }]);
 	
