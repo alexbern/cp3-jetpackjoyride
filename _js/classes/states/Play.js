@@ -38,7 +38,7 @@ export default class Play extends Phaser.State{
 			this.score++;
 		};
 
-		this.text.setText('score: ' + this.score);
+		this.scoreView = this.text.setText('score: ' + this.score);
 
 		//console.log(this.speed);
 
@@ -83,13 +83,13 @@ export default class Play extends Phaser.State{
 		this.player.animations.play('run', 10, true);
 	}
 	gameOver(){
-		this.gameoverscreen = this.game.add.sprite(70,40,'gameover');
-		this.finalscore = this.game.add.text(170, 130, 'your score: ' + this.score, { font: "20px Arial", fill: "#fff", align: "center" });
-		this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this); 
-
+		this.gameoverscreen = this.game.add.sprite(60,40,'gameover');
+		this.finalscore = this.game.add.text(170, 140, 'your score: ' + this.score, { font: "20px Arial", fill: "#fff", align: "center" });
+		this.playagainButton = this.game.add.button(130, 190, 'playagain', this.startagainClick, this); 
+		this.scoreView.kill();
 	}
 
-	 startClick() { 
+	startagainClick() { 
         this.game.state.start('Play');
     }
 

@@ -107,8 +107,13 @@
 		_createClass(Preload, [{
 			key: 'preload',
 			value: function preload() {
+<<<<<<< HEAD
 				// this.load.spritesheet('player', 'assets/sprites/spritesheet.png', 29, 34, 2);
 				this.load.image('ground', 'assets/sprites/ground.jpg');
+=======
+				this.load.spritesheet('player', 'assets/sprites/player.png', 29, 34, 2);
+				this.load.image('ground', 'assets/sprites/ground.png');
+>>>>>>> 578dd924264266b9099c32e47a77442b7057f6d8
 				this.load.image('platform', 'assets/sprites/platform.png');
 	
 				this.load.image('background', 'assets/sprites/bg.png');
@@ -116,7 +121,7 @@
 				this.load.image('logo', 'assets/sprites/logo.png');
 				this.load.image('highscore', 'assets/sprites/bhighscore.jpg');
 				this.load.image('play', 'assets/sprites/bplay.jpg');
-				this.load.image('tutorial', 'assets/sprites/btutorial.jpg');
+				this.load.image('playagain', 'assets/sprites/bplayagain.png');
 				this.load.image('back', 'assets/sprites/bback.jpg');
 	
 				this.load.image('gameover', 'assets/sprites/gameover.png');
@@ -215,7 +220,7 @@
 					this.score++;
 				};
 	
-				this.text.setText('score: ' + this.score);
+				this.scoreView = this.text.setText('score: ' + this.score);
 	
 				//console.log(this.speed);
 	
@@ -268,13 +273,14 @@
 		}, {
 			key: 'gameOver',
 			value: function gameOver() {
-				this.gameoverscreen = this.game.add.sprite(70, 40, 'gameover');
-				this.finalscore = this.game.add.text(170, 130, 'your score: ' + this.score, { font: "20px Arial", fill: "#fff", align: "center" });
-				this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this);
+				this.gameoverscreen = this.game.add.sprite(60, 40, 'gameover');
+				this.finalscore = this.game.add.text(170, 140, 'your score: ' + this.score, { font: "20px Arial", fill: "#fff", align: "center" });
+				this.playagainButton = this.game.add.button(130, 190, 'playagain', this.startagainClick, this);
+				this.scoreView.kill();
 			}
 		}, {
-			key: 'startClick',
-			value: function startClick() {
+			key: 'startagainClick',
+			value: function startagainClick() {
 				this.game.state.start('Play');
 			}
 		}]);
@@ -460,8 +466,7 @@
 	
 	            //START KNOP
 	            this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this);
-	            //this.highscoreButton = this.game.add.button(260, 240, 'highscore', this.creditsClick, this);
-	            this.tutorialButton = this.game.add.button(260, 240, 'tutorial', this.tutorialClick, this);
+	            this.highscoreButton = this.game.add.button(260, 240, 'highscore', this.creditsClick, this);
 	        }
 	    }, {
 	        key: 'startClick',
@@ -473,9 +478,6 @@
 	        value: function creditsClick() {
 	            this.game.state.start('Credits');
 	        }
-	    }, {
-	        key: 'tutorialClick',
-	        value: function tutorialClick() {}
 	    }]);
 	
 	    return Menu;
