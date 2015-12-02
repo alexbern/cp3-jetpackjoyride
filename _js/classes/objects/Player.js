@@ -1,6 +1,6 @@
 export default class Player extends Phaser.Sprite{
 	constructor(game, x, y){
-		super(game, x, y, 'player');
+		super(game, x, y, 'spritesheet');
 
 		this.cursors = this.game.input.keyboard.createCursorKeys();
 		
@@ -8,9 +8,6 @@ export default class Player extends Phaser.Sprite{
 		this.anchor.setTo(0.5, 0.5);
 		
 		this.body.gravity.y = 1000;
-		
-		this.animations.add('run', [0, 1], 10, true);
-		this.animations.play('run');
 
 		this.jumpCount = 0;
 		this.jumpkey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);

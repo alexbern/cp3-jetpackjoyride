@@ -107,7 +107,7 @@
 		_createClass(Preload, [{
 			key: 'preload',
 			value: function preload() {
-				this.load.spritesheet('player', 'assets/sprites/player.png', 29, 34, 2);
+				// this.load.spritesheet('player', 'assets/sprites/spritesheet.png', 29, 34, 2);
 				this.load.image('ground', 'assets/sprites/ground.jpg');
 				this.load.image('platform', 'assets/sprites/platform.png');
 	
@@ -120,6 +120,8 @@
 				this.load.image('back', 'assets/sprites/bback.jpg');
 	
 				this.load.image('gameover', 'assets/sprites/gameover.png');
+	
+				this.load.atlasJSONArray('spritesheet', 'assets/sprites/spritesheet.png', 'assets/sprites/spritesheet.json');
 	
 				this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
 			}
@@ -256,8 +258,12 @@
 		}, {
 			key: 'initPlayer',
 			value: function initPlayer() {
-				this.player = new _Player2.default(this.game, 100, 100, 'player');
+				this.player = new _Player2.default(this.game, 100, 100);
+				// this.player = this.game.add.sprite(100, 100, 'spritesheet', 'player');
 				this.add.existing(this.player);
+	
+				this.player.animations.add('run');
+				this.player.animations.play('run', 10, true);
 			}
 		}, {
 			key: 'gameOver',
@@ -339,7 +345,7 @@
 		function Player(game, x, y) {
 			_classCallCheck(this, Player);
 	
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Player).call(this, game, x, y, 'player'));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Player).call(this, game, x, y, 'spritesheet'));
 	
 			_this.cursors = _this.game.input.keyboard.createCursorKeys();
 	
@@ -347,9 +353,6 @@
 			_this.anchor.setTo(0.5, 0.5);
 	
 			_this.body.gravity.y = 1000;
-	
-			_this.animations.add('run', [0, 1], 10, true);
-			_this.animations.play('run');
 	
 			_this.jumpCount = 0;
 			_this.jumpkey = _this.game.input.keyboard.addKey(Phaser.Keyboard.UP);

@@ -75,8 +75,12 @@ export default class Play extends Phaser.State{
 		this.add.existing(this.ground);
 	}
 	initPlayer(){
-		this.player = new Player(this.game, 100, 100, 'player');
+		this.player = new Player(this.game, 100, 100);
+		// this.player = this.game.add.sprite(100, 100, 'spritesheet', 'player');
 		this.add.existing(this.player);
+
+		this.player.animations.add('run');
+		this.player.animations.play('run', 10, true);
 	}
 	gameOver(){
 		this.gameoverscreen = this.game.add.sprite(70,40,'gameover');
