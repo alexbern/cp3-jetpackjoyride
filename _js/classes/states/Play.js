@@ -33,7 +33,10 @@ export default class Play extends Phaser.State{
 		this.game.physics.arcade.collide(this.player, this.ground);
 		this.game.physics.arcade.collide(this.player, this.platforms);
 
-		this.score++;
+		
+		if (this.deadStatus == 0){
+			this.score++;
+		};
 		//this.text.setText('score: ' + this.game.time.totalElapsedSeconds());
 		this.text.setText('score: ' + this.score);
 
@@ -54,7 +57,7 @@ export default class Play extends Phaser.State{
 		if (this.deadStatus == 0){
 			this.platform.body.velocity.x = -this.speed;
 		}else{
-			this.platform.body.velocity.x = 0;
+			// this.platform.body.velocity.x = 0;
 			this.background.autoScroll(0, 0);
 		}
 	}
