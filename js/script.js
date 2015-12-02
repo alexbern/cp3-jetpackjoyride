@@ -107,13 +107,9 @@
 		_createClass(Preload, [{
 			key: 'preload',
 			value: function preload() {
-<<<<<<< HEAD
+	
 				// this.load.spritesheet('player', 'assets/sprites/spritesheet.png', 29, 34, 2);
-				this.load.image('ground', 'assets/sprites/ground.jpg');
-=======
-				this.load.spritesheet('player', 'assets/sprites/player.png', 29, 34, 2);
 				this.load.image('ground', 'assets/sprites/ground.png');
->>>>>>> 578dd924264266b9099c32e47a77442b7057f6d8
 				this.load.image('platform', 'assets/sprites/platform.png');
 	
 				this.load.image('background', 'assets/sprites/bg.png');
@@ -264,10 +260,9 @@
 			key: 'initPlayer',
 			value: function initPlayer() {
 				this.player = new _Player2.default(this.game, 100, 100);
-				// this.player = this.game.add.sprite(100, 100, 'spritesheet', 'player');
 				this.add.existing(this.player);
 	
-				this.player.animations.add('run');
+				this.player.animations.add('run', [0, 1]);
 				this.player.animations.play('run', 10, true);
 			}
 		}, {
