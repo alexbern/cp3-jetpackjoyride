@@ -119,6 +119,8 @@
 				this.load.image('tutorial', 'assets/sprites/btutorial.jpg');
 				this.load.image('back', 'assets/sprites/bback.jpg');
 	
+				this.load.image('gameover', 'assets/sprites/gameover.png');
+	
 				this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
 			}
 		}, {
@@ -210,7 +212,7 @@
 				if (this.deadStatus == 0) {
 					this.score++;
 				};
-				//this.text.setText('score: ' + this.game.time.totalElapsedSeconds());
+	
 				this.text.setText('score: ' + this.score);
 	
 				//console.log(this.speed);
@@ -225,6 +227,7 @@
 	
 				if (this.player.y > 320) {
 					this.deadStatus = 1;
+					this.gameOver();
 				};
 	
 				if (this.deadStatus == 0) {
@@ -255,6 +258,18 @@
 			value: function initPlayer() {
 				this.player = new _Player2.default(this.game, 100, 100, 'player');
 				this.add.existing(this.player);
+			}
+		}, {
+			key: 'gameOver',
+			value: function gameOver() {
+				this.gameoverscreen = this.game.add.sprite(70, 40, 'gameover');
+				this.finalscore = this.game.add.text(170, 130, 'your score: ' + this.score, { font: "20px Arial", fill: "#fff", align: "center" });
+				this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this);
+			}
+		}, {
+			key: 'startClick',
+			value: function startClick() {
+				this.game.state.start('Play');
 			}
 		}]);
 	
@@ -442,7 +457,8 @@
 	
 	            //START KNOP
 	            this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this);
-	            this.highscoreButton = this.game.add.button(260, 240, 'highscore', this.creditsClick, this);
+	            //this.highscoreButton = this.game.add.button(260, 240, 'highscore', this.creditsClick, this);
+	            this.tutorialButton = this.game.add.button(260, 240, 'tutorial', this.tutorialClick, this);
 	        }
 	    }, {
 	        key: 'startClick',
@@ -454,6 +470,9 @@
 	        value: function creditsClick() {
 	            this.game.state.start('Credits');
 	        }
+	    }, {
+	        key: 'tutorialClick',
+	        value: function tutorialClick() {}
 	    }]);
 	
 	    return Menu;

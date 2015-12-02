@@ -9,7 +9,8 @@ export default class Menu extends Phaser.State{
         
         //START KNOP
         this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this); 
-        this.highscoreButton = this.game.add.button(260, 240, 'highscore', this.creditsClick, this);    
+        //this.highscoreButton = this.game.add.button(260, 240, 'highscore', this.creditsClick, this);
+        this.tutorialButton = this.game.add.button(260, 240, 'tutorial', this.tutorialClick, this);    
     }
 
     startClick() { 
@@ -18,6 +19,9 @@ export default class Menu extends Phaser.State{
 
     creditsClick() { 
         this.game.state.start('Credits');
+    }
+    tutorialClick(){
+
     }
 
 

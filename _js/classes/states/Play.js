@@ -37,7 +37,7 @@ export default class Play extends Phaser.State{
 		if (this.deadStatus == 0){
 			this.score++;
 		};
-		//this.text.setText('score: ' + this.game.time.totalElapsedSeconds());
+
 		this.text.setText('score: ' + this.score);
 
 		//console.log(this.speed);
@@ -52,6 +52,7 @@ export default class Play extends Phaser.State{
 
 		if (this.player.y > 320){
 			this.deadStatus = 1;
+			this.gameOver();
 		};
 
 		if (this.deadStatus == 0){
@@ -77,5 +78,15 @@ export default class Play extends Phaser.State{
 		this.player = new Player(this.game, 100, 100, 'player');
 		this.add.existing(this.player);
 	}
+	gameOver(){
+		this.gameoverscreen = this.game.add.sprite(70,40,'gameover');
+		this.finalscore = this.game.add.text(170, 130, 'your score: ' + this.score, { font: "20px Arial", fill: "#fff", align: "center" });
+		this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this); 
+
+	}
+
+	 startClick() { 
+        this.game.state.start('Play');
+    }
 
 }
