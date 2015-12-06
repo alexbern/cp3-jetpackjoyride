@@ -219,6 +219,7 @@
 				this.game.physics.arcade.collide(this.player, this.platforms);
 	
 				this.game.physics.arcade.collide(this.coins, this.platforms);
+				this.game.physics.arcade.collide(this.player, this.coins, this.powerupHandler, null, this);
 	
 				if (this.deadStatus == 0) {
 					this.score++;
@@ -285,11 +286,18 @@
 		}, {
 			key: 'initCoins',
 			value: function initCoins() {
-				this.coins = new _Coins2.default(this.game, 450, 100);
+				this.coins = new _Coins2.default(this.game, 500, 100);
 				this.add.existing(this.coins);
 	
 				this.coins.animations.add('turn', [0, 1, 2, 3]);
 				this.coins.animations.play('turn', 10, true);
+			}
+		}, {
+			key: 'powerupHandler',
+			value: function powerupHandler() {
+				this.coins.kill();
+	
+				//TO DO: meer punten als gepakt
 			}
 		}, {
 			key: 'gameOver',
