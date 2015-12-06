@@ -44,11 +44,9 @@ export default class Play extends Phaser.State{
 
 		this.scoreView = this.text.setText('score: ' + this.score);
 
-		//console.log(this.score);
-		//console.log(this.speed);
+		
 
 		if (this.score == 500) {
-			//console.log("sneller");
 			this.speed += 100;
 		};
 

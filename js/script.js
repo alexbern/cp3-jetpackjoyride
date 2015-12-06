@@ -54,11 +54,11 @@
 	
 	var _Play2 = _interopRequireDefault(_Play);
 	
-	var _Menu = __webpack_require__(6);
+	var _Menu = __webpack_require__(7);
 	
 	var _Menu2 = _interopRequireDefault(_Menu);
 	
-	var _Credits = __webpack_require__(7);
+	var _Credits = __webpack_require__(8);
 	
 	var _Credits2 = _interopRequireDefault(_Credits);
 	
@@ -163,7 +163,7 @@
 	
 	var _Platform2 = _interopRequireDefault(_Platform);
 	
-	var _Coins = __webpack_require__(8);
+	var _Coins = __webpack_require__(6);
 	
 	var _Coins2 = _interopRequireDefault(_Coins);
 	
@@ -227,11 +227,7 @@
 	
 				this.scoreView = this.text.setText('score: ' + this.score);
 	
-				//console.log(this.score);
-				//console.log(this.speed);
-	
 				if (this.score == 500) {
-					//console.log("sneller");
 					this.speed += 100;
 				};
 	
@@ -395,7 +391,8 @@
 			_this.jumpkey.onDown.add(_this.jumpCheck, _this);
 	
 			_this.animations.add('run', [0, 1]);
-			_this.animations.add('jump', [2, 3]);
+			_this.animations.add('jump', [3]);
+			_this.animations.add('jetpack', [2]);
 	
 			return _this;
 		}
@@ -405,21 +402,19 @@
 			value: function update() {
 				if (this.body.wasTouching.down) {
 					this.jumpCount = 0;
-				};
-	
-				if (!this.body.wasTouching.down) {
-					this.animations.play('jump', 5, true);
-				} else {
 					this.animations.play('run', 10, true);
 				}
 			}
 		}, {
 			key: 'jumpCheck',
 			value: function jumpCheck() {
+				if (this.body.wasTouching.down) {};
+	
 				if (this.jumpCount < 1) {
 					this.body.velocity.y = -350;
 					this.jumpCount++;
-				};
+					this.animations.play('jetpack', 1, true);
+				}
 			}
 		}]);
 	
@@ -468,6 +463,50 @@
 
 /***/ },
 /* 6 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Coins = (function (_Phaser$Sprite) {
+		_inherits(Coins, _Phaser$Sprite);
+	
+		function Coins(game, x, y) {
+			_classCallCheck(this, Coins);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Coins).call(this, game, x, y, 'spritesheetCoins'));
+	
+			_this.game.physics.arcade.enableBody(_this);
+			_this.anchor.setTo(0.5, 0.5);
+	
+			_this.body.gravity.y = 1000;
+	
+			return _this;
+		}
+	
+		_createClass(Coins, [{
+			key: 'update',
+			value: function update() {}
+		}]);
+	
+		return Coins;
+	})(Phaser.Sprite);
+	
+	exports.default = Coins;
+
+/***/ },
+/* 7 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -525,7 +564,7 @@
 	exports.default = Menu;
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -583,50 +622,6 @@
 	})(Phaser.State);
 	
 	exports.default = Credits;
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Coins = (function (_Phaser$Sprite) {
-		_inherits(Coins, _Phaser$Sprite);
-	
-		function Coins(game, x, y) {
-			_classCallCheck(this, Coins);
-	
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Coins).call(this, game, x, y, 'spritesheetCoins'));
-	
-			_this.game.physics.arcade.enableBody(_this);
-			_this.anchor.setTo(0.5, 0.5);
-	
-			_this.body.gravity.y = 1000;
-	
-			return _this;
-		}
-	
-		_createClass(Coins, [{
-			key: 'update',
-			value: function update() {}
-		}]);
-	
-		return Coins;
-	})(Phaser.Sprite);
-	
-	exports.default = Coins;
 
 /***/ }
 /******/ ]);
