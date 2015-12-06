@@ -274,18 +274,19 @@
 		}, {
 			key: 'initPlayer',
 			value: function initPlayer() {
-				this.player = new _Player2.default(this.game, 100, 100);
+				this.player = new _Player2.default(this.game, 100, 185);
 				this.add.existing(this.player);
-	
-				this.player.animations.add('run', [0, 1]);
-				this.player.animations.play('run', 10, true);
-	
-				//this.player.animations.add('jump', [2]);
-				//this.player.animations.play('jump', 10, true);
 			}
 		}, {
 			key: 'initCoins',
 			value: function initCoins() {
+				var coinGroup = undefined;
+	
+				//coinGroup = this.game.rnd.integerInRange(200, 80);
+				//this.coins = new Coins(this.game, coinGroup,0, 'coins');
+				//console.log(coinGroup);
+				//this.coinGroup.add(this.coins);
+	
 				this.coins = new _Coins2.default(this.game, 500, 100);
 				this.add.existing(this.coins);
 	
@@ -393,6 +394,9 @@
 			_this.jumpkey = _this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
 			_this.jumpkey.onDown.add(_this.jumpCheck, _this);
 	
+			_this.animations.add('run', [0, 1]);
+			_this.animations.add('jump', [2, 3]);
+	
 			return _this;
 		}
 	
@@ -402,6 +406,12 @@
 				if (this.body.wasTouching.down) {
 					this.jumpCount = 0;
 				};
+	
+				if (!this.body.wasTouching.down) {
+					this.animations.play('jump', 5, true);
+				} else {
+					this.animations.play('run', 10, true);
+				}
 			}
 		}, {
 			key: 'jumpCheck',
@@ -409,10 +419,6 @@
 				if (this.jumpCount < 1) {
 					this.body.velocity.y = -350;
 					this.jumpCount++;
-	
-					//this.player.image('jump', [2]);
-					//this.player.image('jump', 10, true);
-					//this.game.add.sprite(0,0,'spritesheet',[2]);
 				};
 			}
 		}]);

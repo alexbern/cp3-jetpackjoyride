@@ -71,6 +71,7 @@ export default class Play extends Phaser.State{
 			// this.platform.body.velocity.x = 0;
 			this.background.autoScroll(0, 0);
 		}
+
 	}
 	initPlatform(){
 		let platformY;
@@ -85,16 +86,17 @@ export default class Play extends Phaser.State{
 		this.add.existing(this.ground);
 	}
 	initPlayer(){
-		this.player = new Player(this.game, 100, 100);
+		this.player = new Player(this.game, 100, 185);
 		this.add.existing(this.player);
-
-		this.player.animations.add('run', [0, 1]);
-		this.player.animations.play('run', 10, true);
-
-		//this.player.animations.add('jump', [2]);
-		//this.player.animations.play('jump', 10, true);
 	}
 	initCoins(){
+		let coinGroup;
+
+		//coinGroup = this.game.rnd.integerInRange(200, 80);
+		//this.coins = new Coins(this.game, coinGroup,0, 'coins');
+		//console.log(coinGroup);
+		//this.coinGroup.add(this.coins);
+
 		this.coins = new Coins(this.game, 500, 100);
 		this.add.existing(this.coins);
 

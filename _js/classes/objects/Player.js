@@ -13,20 +13,25 @@ export default class Player extends Phaser.Sprite{
 		this.jumpkey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
 		this.jumpkey.onDown.add(this.jumpCheck, this);
 
+		this.animations.add('run', [0, 1]);
+		this.animations.add('jump', [2, 3]);
+
 	}
 	update(){
 		if (this.body.wasTouching.down){
 			this.jumpCount = 0;
 		};
+
+		if (!this.body.wasTouching.down){
+			this.animations.play('jump', 5, true);
+		}else{
+			this.animations.play('run', 10, true);
+		}
 	}
 	jumpCheck(){
 		if (this.jumpCount < 1){
 			this.body.velocity.y = -350;
 			this.jumpCount++;
-			
-			//this.player.image('jump', [2]);
-			//this.player.image('jump', 10, true);
-			//this.game.add.sprite(0,0,'spritesheet',[2]);
 		};
 	}
 
