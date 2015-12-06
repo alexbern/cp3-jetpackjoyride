@@ -11,8 +11,13 @@ export default class Play extends Phaser.State{
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		this.score = 0;
+		this.scoreRange = 500;
+
 		this.deadStatus = 0;
 		this.speed = 140;
+
+		this.intervalTime = 1400;
+
 
 		this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 		this.background.autoScroll(-this.speed, 0);
@@ -22,16 +27,18 @@ export default class Play extends Phaser.State{
 		this.platforms = this.game.add.group();
 
 		this.timer = this.game.time.create(false);
-		//this.timer.loop(1500, this.initPlatform, this);
-		//this.timer.start();
+		this.timer.loop(this.intervalTime, this.initPlatform, this);
+		this.timer.start();
 
-		this.platformGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 1.5, this.initPlatform, this); 
-        this.platformGenerator.timer.start();
+		// this.platformGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * this.intervalTime, this.initPlatform, this); 
+  		//this.platformGenerator.timer.start();
+
+  		this.timer = 0;
 
 		this.initGround();
 		this.initPlayer();
-		this.initPlatform();
 		this.initCoins();
+		this.initPlatform();
 	}
 	update(){
 		this.game.physics.arcade.collide(this.player, this.ground);
@@ -46,20 +53,21 @@ export default class Play extends Phaser.State{
 
 		this.scoreView = this.text.setText('score: ' + this.score);
 
-		//console.log(this.score);
-		//console.log(this.speed);
+		if ((this.score/this.scoreRange) == 1) {
 
-		let scoreRange = 500;
+			this.scoreRange += 500;
+			this.speed += 20;
 
-		if ((this.score/scoreRange) == 1) {
-			//console.log("sneller");
+			this.intervalTime -= 20;
 
-			scoreRange += 500;
+		}
 
-			this.speed += 50;
-		};
+		// this.timer++;
+		// this.timer = this.timer % this.intervalTime;
 
-		console.log(this.speed);
+		// if (this.timer == 0){
+		// 	this.initPlatform();
+		// };
 
 		// this.speed = this.speed + this.score/2000;
 

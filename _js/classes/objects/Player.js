@@ -14,25 +14,28 @@ export default class Player extends Phaser.Sprite{
 		this.jumpkey.onDown.add(this.jumpCheck, this);
 
 		this.animations.add('run', [0, 1]);
-		this.animations.add('jump', [2, 3]);
+		this.animations.add('jump', [3]);
+		this.animations.add('jetpack', [2]);
 
 	}
 	update(){
 		if (this.body.wasTouching.down){
 			this.jumpCount = 0;
-		};
-
-		if (!this.body.wasTouching.down){
-			this.animations.play('jump', 5, true);
-		}else{
 			this.animations.play('run', 10, true);
 		}
+
+
 	}
 	jumpCheck(){
+		if (this.body.wasTouching.down){
+			
+		};
+
 		if (this.jumpCount < 1){
 			this.body.velocity.y = -350;
 			this.jumpCount++;
-		};
+			this.animations.play('jetpack', 1, true);
+		}
 	}
 
 	

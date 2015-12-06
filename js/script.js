@@ -193,8 +193,12 @@
 				this.game.physics.startSystem(Phaser.Physics.ARCADE);
 	
 				this.score = 0;
+				this.scoreRange = 500;
+	
 				this.deadStatus = 0;
 				this.speed = 140;
+	
+				this.intervalTime = 1400;
 	
 				this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 				this.background.autoScroll(-this.speed, 0);
@@ -204,16 +208,18 @@
 				this.platforms = this.game.add.group();
 	
 				this.timer = this.game.time.create(false);
-				//this.timer.loop(1500, this.initPlatform, this);
-				//this.timer.start();
+				this.timer.loop(this.intervalTime, this.initPlatform, this);
+				this.timer.start();
 	
-				this.platformGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 1.5, this.initPlatform, this);
-				this.platformGenerator.timer.start();
+				// this.platformGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * this.intervalTime, this.initPlatform, this);
+				//this.platformGenerator.timer.start();
+	
+				this.timer = 0;
 	
 				this.initGround();
 				this.initPlayer();
-				this.initPlatform();
 				this.initCoins();
+				this.initPlatform();
 			}
 		}, {
 			key: 'update',
@@ -230,20 +236,20 @@
 	
 				this.scoreView = this.text.setText('score: ' + this.score);
 	
-				//console.log(this.score);
-				//console.log(this.speed);
+				if (this.score / this.scoreRange == 1) {
 	
-				var scoreRange = 500;
+					this.scoreRange += 500;
+					this.speed += 20;
 	
-				if (this.score / scoreRange == 1) {
-					//console.log("sneller");
+					this.intervalTime -= 20;
+				}
 	
-					scoreRange += 500;
+				// this.timer++;
+				// this.timer = this.timer % this.intervalTime;
 	
-					this.speed += 50;
-				};
-	
-				console.log(this.speed);
+				// if (this.timer == 0){
+				// 	this.initPlatform();
+				// };
 	
 				// this.speed = this.speed + this.score/2000;
 	
@@ -406,7 +412,8 @@
 			_this.jumpkey.onDown.add(_this.jumpCheck, _this);
 	
 			_this.animations.add('run', [0, 1]);
-			_this.animations.add('jump', [2, 3]);
+			_this.animations.add('jump', [3]);
+			_this.animations.add('jetpack', [2]);
 	
 			return _this;
 		}
@@ -416,21 +423,19 @@
 			value: function update() {
 				if (this.body.wasTouching.down) {
 					this.jumpCount = 0;
-				};
-	
-				if (!this.body.wasTouching.down) {
-					this.animations.play('jump', 5, true);
-				} else {
 					this.animations.play('run', 10, true);
 				}
 			}
 		}, {
 			key: 'jumpCheck',
 			value: function jumpCheck() {
+				if (this.body.wasTouching.down) {};
+	
 				if (this.jumpCount < 1) {
 					this.body.velocity.y = -350;
 					this.jumpCount++;
-				};
+					this.animations.play('jetpack', 1, true);
+				}
 			}
 		}]);
 	
