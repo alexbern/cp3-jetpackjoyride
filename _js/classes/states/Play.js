@@ -22,8 +22,11 @@ export default class Play extends Phaser.State{
 		this.platforms = this.game.add.group();
 
 		this.timer = this.game.time.create(false);
-		this.timer.loop(1500, this.initPlatform, this);
-		this.timer.start();
+		//this.timer.loop(1500, this.initPlatform, this);
+		//this.timer.start();
+
+		this.platformGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 1.5, this.initPlatform, this); 
+        this.platformGenerator.timer.start();
 
 		this.initGround();
 		this.initPlayer();
@@ -36,7 +39,6 @@ export default class Play extends Phaser.State{
 
 		this.game.physics.arcade.collide(this.coins, this.platforms);
 		this.game.physics.arcade.collide(this.player, this.coins, this.powerupHandler, null, this);
-
 		
 		if (this.deadStatus == 0){
 			this.score++;
@@ -47,10 +49,17 @@ export default class Play extends Phaser.State{
 		//console.log(this.score);
 		//console.log(this.speed);
 
-		if (this.score == 500) {
+		let scoreRange = 500;
+
+		if ((this.score/scoreRange) == 1) {
 			//console.log("sneller");
-			this.speed += 100;
+
+			scoreRange += 500;
+
+			this.speed += 50;
 		};
+
+		console.log(this.speed);
 
 		// this.speed = this.speed + this.score/2000;
 
@@ -77,6 +86,7 @@ export default class Play extends Phaser.State{
 		let platformY;
 
 		platformY = this.game.rnd.integerInRange(200, 80);
+		
 		this.platform = new Platform(this.game, 480, platformY, 'platform');
 		this.platforms.add(this.platform);
 	}

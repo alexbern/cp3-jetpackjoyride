@@ -204,8 +204,11 @@
 				this.platforms = this.game.add.group();
 	
 				this.timer = this.game.time.create(false);
-				this.timer.loop(1500, this.initPlatform, this);
-				this.timer.start();
+				//this.timer.loop(1500, this.initPlatform, this);
+				//this.timer.start();
+	
+				this.platformGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * 1.5, this.initPlatform, this);
+				this.platformGenerator.timer.start();
 	
 				this.initGround();
 				this.initPlayer();
@@ -230,10 +233,17 @@
 				//console.log(this.score);
 				//console.log(this.speed);
 	
-				if (this.score == 500) {
+				var scoreRange = 500;
+	
+				if (this.score / scoreRange == 1) {
 					//console.log("sneller");
-					this.speed += 100;
+	
+					scoreRange += 500;
+	
+					this.speed += 50;
 				};
+	
+				console.log(this.speed);
 	
 				// this.speed = this.speed + this.score/2000;
 	
@@ -261,6 +271,7 @@
 				var platformY = undefined;
 	
 				platformY = this.game.rnd.integerInRange(200, 80);
+	
 				this.platform = new _Platform2.default(this.game, 480, platformY, 'platform');
 				this.platforms.add(this.platform);
 			}
