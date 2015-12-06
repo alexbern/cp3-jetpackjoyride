@@ -23,6 +23,10 @@ export default class Player extends Phaser.Sprite{
 		if (this.jumpCount < 1){
 			this.body.velocity.y = -350;
 			this.jumpCount++;
+			
+			//this.player.image('jump', [2]);
+			//this.player.image('jump', 10, true);
+			//this.game.add.sprite(0,0,'spritesheet',[2]);
 		};
 	}
 

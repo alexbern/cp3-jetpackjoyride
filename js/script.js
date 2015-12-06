@@ -108,7 +108,7 @@
 			key: 'preload',
 			value: function preload() {
 	
-				// this.load.spritesheet('player', 'assets/sprites/spritesheet.png', 29, 34, 2);
+				//this.load.spritesheet('player', 'assets/sprites/spritesheet.png', 29, 34, 2);
 				this.load.image('ground', 'assets/sprites/ground.png');
 				this.load.image('platform', 'assets/sprites/platform.png');
 	
@@ -123,6 +123,7 @@
 				this.load.image('gameover', 'assets/sprites/gameover.png');
 	
 				this.load.atlasJSONArray('spritesheet', 'assets/sprites/spritesheet.png', 'assets/sprites/spritesheet.json');
+				this.load.atlasJSONArray('spritesheetCoins', 'assets/sprites/coinSpritesheet.png', 'assets/sprites/coinSpritesheet.json');
 	
 				this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
 			}
@@ -161,6 +162,10 @@
 	var _Platform = __webpack_require__(5);
 	
 	var _Platform2 = _interopRequireDefault(_Platform);
+	
+	var _Coins = __webpack_require__(8);
+	
+	var _Coins2 = _interopRequireDefault(_Coins);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -205,6 +210,7 @@
 				this.initGround();
 				this.initPlayer();
 				this.initPlatform();
+				this.initCoins();
 			}
 		}, {
 			key: 'update',
@@ -212,13 +218,21 @@
 				this.game.physics.arcade.collide(this.player, this.ground);
 				this.game.physics.arcade.collide(this.player, this.platforms);
 	
+				this.game.physics.arcade.collide(this.coins, this.platforms);
+	
 				if (this.deadStatus == 0) {
 					this.score++;
 				};
 	
 				this.scoreView = this.text.setText('score: ' + this.score);
 	
+				//console.log(this.score);
 				//console.log(this.speed);
+	
+				if (this.score == 500) {
+					//console.log("sneller");
+					this.speed += 100;
+				};
 	
 				// this.speed = this.speed + this.score/2000;
 	
@@ -264,6 +278,18 @@
 	
 				this.player.animations.add('run', [0, 1]);
 				this.player.animations.play('run', 10, true);
+	
+				//this.player.animations.add('jump', [2]);
+				//this.player.animations.play('jump', 10, true);
+			}
+		}, {
+			key: 'initCoins',
+			value: function initCoins() {
+				this.coins = new _Coins2.default(this.game, 450, 100);
+				this.add.existing(this.coins);
+	
+				this.coins.animations.add('turn', [0, 1, 2, 3]);
+				this.coins.animations.play('turn', 10, true);
 			}
 		}, {
 			key: 'gameOver',
@@ -375,6 +401,10 @@
 				if (this.jumpCount < 1) {
 					this.body.velocity.y = -350;
 					this.jumpCount++;
+	
+					//this.player.image('jump', [2]);
+					//this.player.image('jump', 10, true);
+					//this.game.add.sprite(0,0,'spritesheet',[2]);
 				};
 			}
 		}]);
@@ -539,6 +569,50 @@
 	})(Phaser.State);
 	
 	exports.default = Credits;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Coins = (function (_Phaser$Sprite) {
+		_inherits(Coins, _Phaser$Sprite);
+	
+		function Coins(game, x, y) {
+			_classCallCheck(this, Coins);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Coins).call(this, game, x, y, 'spritesheetCoins'));
+	
+			_this.game.physics.arcade.enableBody(_this);
+			_this.anchor.setTo(0.5, 0.5);
+	
+			_this.body.gravity.y = 1000;
+	
+			return _this;
+		}
+	
+		_createClass(Coins, [{
+			key: 'update',
+			value: function update() {}
+		}]);
+	
+		return Coins;
+	})(Phaser.Sprite);
+	
+	exports.default = Coins;
 
 /***/ }
 /******/ ]);

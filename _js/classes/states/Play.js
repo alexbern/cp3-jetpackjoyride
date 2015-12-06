@@ -1,6 +1,7 @@
 import Ground from '../objects/Ground';
 import Player from '../objects/Player';
 import Platform from '../objects/Platform';
+import Coins from '../objects/Coins';
 
 export default class Play extends Phaser.State{
 	preload(){
@@ -27,11 +28,13 @@ export default class Play extends Phaser.State{
 		this.initGround();
 		this.initPlayer();
 		this.initPlatform();
-
+		this.initCoins();
 	}
 	update(){
 		this.game.physics.arcade.collide(this.player, this.ground);
 		this.game.physics.arcade.collide(this.player, this.platforms);
+
+		this.game.physics.arcade.collide(this.coins, this.platforms);
 
 		
 		if (this.deadStatus == 0){
@@ -40,7 +43,13 @@ export default class Play extends Phaser.State{
 
 		this.scoreView = this.text.setText('score: ' + this.score);
 
+		//console.log(this.score);
 		//console.log(this.speed);
+
+		if (this.score == 500) {
+			//console.log("sneller");
+			this.speed += 100;
+		};
 
 		// this.speed = this.speed + this.score/2000;
 
@@ -80,6 +89,16 @@ export default class Play extends Phaser.State{
 
 		this.player.animations.add('run', [0, 1]);
 		this.player.animations.play('run', 10, true);
+
+		//this.player.animations.add('jump', [2]);
+		//this.player.animations.play('jump', 10, true);
+	}
+	initCoins(){
+		this.coins = new Coins(this.game, 450, 100);
+		this.add.existing(this.coins);
+
+		this.coins.animations.add('turn', [0, 1, 2, 3]);
+		this.coins.animations.play('turn', 10, true);
 
 	}
 	gameOver(){
