@@ -13,8 +13,12 @@ export default class Play extends Phaser.State{
 		this.score = 0;
 		this.scoreRange = 500;
 
+		this.cointimer = 0;
+		this.coinTimeRange = 500;
+
 		this.deadStatus = 0;
 		this.speed = 140;
+
 
 		this.intervalTime = 1400;
 
@@ -33,11 +37,10 @@ export default class Play extends Phaser.State{
 		// this.platformGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * this.intervalTime, this.initPlatform, this); 
   		//this.platformGenerator.timer.start();
 
-  		this.timer = 0;
+  		this.timer = 500;
 
 		this.initGround();
 		this.initPlayer();
-		this.initCoins();
 		this.initPlatform();
 	}
 	update(){
@@ -47,9 +50,13 @@ export default class Play extends Phaser.State{
 		this.game.physics.arcade.collide(this.coins, this.platforms);
 		this.game.physics.arcade.collide(this.player, this.coins, this.powerupHandler, null, this);
 		
+		//SCORE OMHOOG
+
 		if (this.deadStatus == 0){
 			this.score++;
 		};
+
+		//SCORE TEV SNELHEID
 
 		this.scoreView = this.text.setText('score: ' + this.score);
 
@@ -61,6 +68,16 @@ export default class Play extends Phaser.State{
 			this.intervalTime -= 20;
 
 		}
+
+		//COINS
+
+		this.cointimer ++;
+
+
+		if (this.cointimer/this.coinTimeRange == 1){
+			this.coinTimeRange += this.game.rnd.integerInRange(100, 500);
+			this.initCoins();
+		};
 
 		// this.timer++;
 		// this.timer = this.timer % this.intervalTime;
@@ -90,6 +107,8 @@ export default class Play extends Phaser.State{
 		}
 
 	}
+
+	
 	initPlatform(){
 		let platformY;
 

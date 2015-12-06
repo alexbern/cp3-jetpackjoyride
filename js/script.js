@@ -195,6 +195,9 @@
 				this.score = 0;
 				this.scoreRange = 500;
 	
+				this.cointimer = 0;
+				this.coinTimeRange = 500;
+	
 				this.deadStatus = 0;
 				this.speed = 140;
 	
@@ -214,11 +217,10 @@
 				// this.platformGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * this.intervalTime, this.initPlatform, this);
 				//this.platformGenerator.timer.start();
 	
-				this.timer = 0;
+				this.timer = 500;
 	
 				this.initGround();
 				this.initPlayer();
-				this.initCoins();
 				this.initPlatform();
 			}
 		}, {
@@ -230,9 +232,13 @@
 				this.game.physics.arcade.collide(this.coins, this.platforms);
 				this.game.physics.arcade.collide(this.player, this.coins, this.powerupHandler, null, this);
 	
+				//SCORE OMHOOG
+	
 				if (this.deadStatus == 0) {
 					this.score++;
 				};
+	
+				//SCORE TEV SNELHEID
 	
 				this.scoreView = this.text.setText('score: ' + this.score);
 	
@@ -243,6 +249,15 @@
 	
 					this.intervalTime -= 20;
 				}
+	
+				//COINS
+	
+				this.cointimer++;
+	
+				if (this.cointimer / this.coinTimeRange == 1) {
+					this.coinTimeRange += this.game.rnd.integerInRange(100, 500);
+					this.initCoins();
+				};
 	
 				// this.timer++;
 				// this.timer = this.timer % this.intervalTime;
@@ -628,7 +643,6 @@
 	
 			_this.game.physics.arcade.enableBody(_this);
 			_this.anchor.setTo(0.5, 0.5);
-	
 			_this.body.gravity.y = 1000;
 	
 			return _this;
