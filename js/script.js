@@ -191,34 +191,30 @@
 			key: 'create',
 			value: function create() {
 				this.game.physics.startSystem(Phaser.Physics.ARCADE);
-	
+				//SCORE
 				this.score = 0;
 				this.scoreRange = 500;
-	
+				//COINS
 				this.cointimer = 0;
 				this.coinTimeRange = 500;
-	
+				this.bonusTeller = 0;
+				//DIFICULTY
 				this.deadStatus = 0;
 				this.speed = 140;
-	
-				this.intervalTime = 1400;
-	
+				//BACKGROUND
 				this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 				this.background.autoScroll(-this.speed, 0);
-	
 				this.text = this.game.add.text(350, 20, 'score: 0', { font: "15px Arial", fill: "#ffffff", align: "center" });
-	
+				//PLATFORMS
 				this.platforms = this.game.add.group();
-	
+				this.intervalTime = 1400;
 				this.timer = this.game.time.create(false);
 				this.timer.loop(this.intervalTime, this.initPlatform, this);
 				this.timer.start();
-	
+				this.timer = 500;
 				// this.platformGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * this.intervalTime, this.initPlatform, this);
 				//this.platformGenerator.timer.start();
-	
-				this.timer = 500;
-	
+				//STARTUP
 				this.initGround();
 				this.initPlayer();
 				this.initPlatform();
@@ -226,38 +222,29 @@
 		}, {
 			key: 'update',
 			value: function update() {
+				//FYSICS
 				this.game.physics.arcade.collide(this.player, this.ground);
 				this.game.physics.arcade.collide(this.player, this.platforms);
-	
+				//COLLISSION
 				this.game.physics.arcade.collide(this.coins, this.platforms);
-				this.game.physics.arcade.collide(this.player, this.coins, this.powerupHandler, null, this);
 	
 				//SCORE OMHOOG
-	
 				if (this.deadStatus == 0) {
 					this.score++;
-				};
-	
+				}
 				//SCORE TEV SNELHEID
-	
 				this.scoreView = this.text.setText('score: ' + this.score);
-	
 				if (this.score / this.scoreRange == 1) {
-	
 					this.scoreRange += 500;
 					this.speed += 20;
-	
 					this.intervalTime -= 20;
 				}
-	
 				//COINS
-	
 				this.cointimer++;
-	
 				if (this.cointimer / this.coinTimeRange == 1) {
 					this.coinTimeRange += this.game.rnd.integerInRange(100, 500);
 					this.initCoins();
-				};
+				}
 	
 				// this.timer++;
 				// this.timer = this.timer % this.intervalTime;
@@ -268,17 +255,23 @@
 	
 				// this.speed = this.speed + this.score/2000;
 	
+				//BONUSSES
+				if (this.game.physics.arcade.collide(this.player, this.coins)) {
+					this.coins.kill();
+					this.randomTime = Phaser.Timer.SECOND * this.game.rnd.integerInRange(1, 5);
+					this.bonusTeller = this.game.time.events.add(this.randomTime, this.bonusPoint, this);
+				}
+	
+				//PLAYER GAMEPLAY
 				if (this.player.body.wasTouching.down) {
 					this.player.body.velocity.x = this.speed;
 				} else {
 					this.player.body.velocity.x = 0;
 				}
-	
 				if (this.player.y > 320) {
 					this.deadStatus = 1;
 					this.gameOver();
-				};
-	
+				}
 				if (this.deadStatus == 0) {
 					this.platform.body.velocity.x = -this.speed;
 				} else {
@@ -287,12 +280,15 @@
 				}
 			}
 		}, {
+			key: 'render',
+			value: function render() {
+				this.game.debug.text(this.game.time.events.duration, 32, 32);
+			}
+		}, {
 			key: 'initPlatform',
 			value: function initPlatform() {
 				var platformY = undefined;
-	
 				platformY = this.game.rnd.integerInRange(200, 80);
-	
 				this.platform = new _Platform2.default(this.game, 480, platformY, 'platform');
 				this.platforms.add(this.platform);
 			}
@@ -313,24 +309,28 @@
 			key: 'initCoins',
 			value: function initCoins() {
 				var coinGroup = undefined;
-	
-				//coinGroup = this.game.rnd.integerInRange(200, 80);
-				//this.coins = new Coins(this.game, coinGroup,0, 'coins');
-				//console.log(coinGroup);
-				//this.coinGroup.add(this.coins);
-	
 				this.coins = new _Coins2.default(this.game, 500, 100);
 				this.add.existing(this.coins);
-	
-				this.coins.animations.add('turn', [0, 1, 2, 3]);
-				this.coins.animations.play('turn', 10, true);
 			}
 		}, {
 			key: 'powerupHandler',
 			value: function powerupHandler() {
 				this.coins.kill();
-	
-				//TO DO: meer punten als gepakt
+				this.bonusPoint();
+			}
+		}, {
+			key: 'bonusPoint',
+			value: function bonusPoint() {
+				this.score += this.randomTime;
+				//TO DO: bonustekst sprite
+				//this.bonusText = this.game.add.text(180, 150, 'GOOD JOB!', { font: "15px Arial", fill: "#ffffff", align: "center" });
+				//this.game.time.events.add(Phaser.Timer.SECOND * 2, this.deathBonus, this);
+			}
+		}, {
+			key: 'deathBonus',
+			value: function deathBonus() {
+				this.bonusText.kill();
+				this.randomTime = 0;
 			}
 		}, {
 			key: 'gameOver',
@@ -444,8 +444,6 @@
 		}, {
 			key: 'jumpCheck',
 			value: function jumpCheck() {
-				if (this.body.wasTouching.down) {};
-	
 				if (this.jumpCount < 1) {
 					this.body.velocity.y = -350;
 					this.jumpCount++;
@@ -484,9 +482,7 @@
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Platform).call(this, game, x, y, 'platform'));
 	
 			_this.game.physics.arcade.enableBody(_this);
-	
 			_this.body.immovable = true;
-	
 			_this.checkWorldBounds = true;
 			_this.outOfBoundsKill = true;
 			return _this;
@@ -644,13 +640,15 @@
 			_this.game.physics.arcade.enableBody(_this);
 			_this.anchor.setTo(0.5, 0.5);
 			_this.body.gravity.y = 1000;
-	
+			_this.animations.add('turn', [0, 1, 2, 3]);
 			return _this;
 		}
 	
 		_createClass(Coins, [{
 			key: 'update',
-			value: function update() {}
+			value: function update() {
+				this.animations.play('turn', 10, true);
+			}
 		}]);
 	
 		return Coins;
