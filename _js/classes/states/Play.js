@@ -96,11 +96,9 @@ export default class Play extends Phaser.State{
 		}
 
 	}
-	
 	render() {
     	this.game.debug.text(this.game.time.events.duration, 32, 32);
 	}
-
 	initPlatform(){
 		let platformY;
 		platformY = this.game.rnd.integerInRange(200, 80);
@@ -125,7 +123,6 @@ export default class Play extends Phaser.State{
 		this.coins.kill(); 
 		this.bonusPoint();
 	}
-
 	bonusPoint(){
 		this.score += this.randomTime;
 		//TO DO: bonustekst sprite 
@@ -142,9 +139,7 @@ export default class Play extends Phaser.State{
 		this.playagainButton = this.game.add.button(130, 190, 'playagain', this.startagainClick, this); 
 		this.scoreView.kill();
 	}
-
 	startagainClick() { 
         this.game.state.start('Play');
     }
-
 }
