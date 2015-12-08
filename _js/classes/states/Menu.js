@@ -15,7 +15,7 @@ export default class Menu extends Phaser.State{
         this.startButton.kill();
         this.highscoreButton.kill();
         this.howtoscreen = this.game.add.sprite(60,40,'howto');
-        this.startText = this.game.add.text(240, 200, 'fly once to start', { font: "15px Arial", fill: "#ffffff", align: "center" });
+        this.startText = this.game.add.text(240, 200, 'jump once to start', { font: "15px Arial", fill: "#ffffff", align: "center" });
         this.startText.anchor.setTo(0.5, 0.5);
         this.game.add.tween(this.startText.scale).to( { x: 1.2, y: 1.2 }, 2000, Phaser.Easing.Linear.NONE, true, 0, 500, true);
         //FLY START

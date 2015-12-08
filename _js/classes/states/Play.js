@@ -4,9 +4,6 @@ import Platform from '../objects/Platform';
 import Coins from '../objects/Coins';
 
 export default class Play extends Phaser.State{
-	preload(){
-
-	}
 	create(){
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		//SCORE
@@ -16,13 +13,16 @@ export default class Play extends Phaser.State{
 		this.cointimer = 0;
 		this.coinTimeRange = 500;
 		this.bonusTeller = 0;
+		this.textBonus = this.game.add.text(100, 20, 'bonus: 0', { font: "15px Arial", fill: "#ffffff", align: "center" });
+		this.bonusView = this.textBonus.setText( 'bonus: 0');
+		this.bonusState = 0;
 		//DIFICULTY
 		this.deadStatus = 0;
 		this.speed = 140;
 		//BACKGROUND
 		this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 		this.background.autoScroll(-this.speed, 0);
-		this.text = this.game.add.text(350, 20, 'score: 0', { font: "15px Arial", fill: "#ffffff", align: "center" });
+		this.textScore = this.game.add.text(350, 20, 'score: 0', { font: "15px Arial", fill: "#ffffff", align: "center" });	
 		//PLATFORMS
 		this.platforms = this.game.add.group();
 		this.intervalTime = 1400;
@@ -43,13 +43,12 @@ export default class Play extends Phaser.State{
 		this.game.physics.arcade.collide(this.player, this.platforms);
 		//COLLISSION
 		this.game.physics.arcade.collide(this.coins, this.platforms);
-
 		//SCORE OMHOOG
 		if (this.deadStatus == 0){
 			this.score++;
 		}
 		//SCORE TEV SNELHEID
-		this.scoreView = this.text.setText('score: ' + this.score);
+		this.scoreView = this.textScore.setText('score: ' + this.score);
 		if ((this.score/this.scoreRange) == 1) {
 			this.scoreRange += 500;
 			this.speed += 20;
@@ -57,27 +56,17 @@ export default class Play extends Phaser.State{
 		}
 		//COINS
 		this.cointimer ++;
-		if (this.cointimer/this.coinTimeRange == 1){
+		if (this.cointimer/this.coinTimeRange == 1 && this.bonusState == 0){
 			this.coinTimeRange += this.game.rnd.integerInRange(100, 500);
 			this.initCoins();
 		}
-
-		// this.timer++;
-		// this.timer = this.timer % this.intervalTime;
-
-		// if (this.timer == 0){
-		// 	this.initPlatform();
-		// };
-
-		// this.speed = this.speed + this.score/2000;
-
 		//BONUSSES
 		if (this.game.physics.arcade.collide(this.player, this.coins)) {
 			this.coins.kill(); 
+			this.bonusState = 1;		
 			this.randomTime = Phaser.Timer.SECOND * this.game.rnd.integerInRange(1,5);
 			this.bonusTeller = this.game.time.events.add(this.randomTime, this.bonusPoint, this);
 		}
-
 		//PLAYER GAMEPLAY
 		if (this.player.body.wasTouching.down){
 			this.player.body.velocity.x = this.speed;
@@ -94,10 +83,6 @@ export default class Play extends Phaser.State{
 			// this.platform.body.velocity.x = 0;
 			this.background.autoScroll(0, 0);
 		}
-
-	}
-	render() {
-    	this.game.debug.text(this.game.time.events.duration, 32, 32);
 	}
 	initPlatform(){
 		let platformY;
@@ -125,13 +110,12 @@ export default class Play extends Phaser.State{
 	}
 	bonusPoint(){
 		this.score += this.randomTime;
-		//TO DO: bonustekst sprite 
-		//this.bonusText = this.game.add.text(180, 150, 'GOOD JOB!', { font: "15px Arial", fill: "#ffffff", align: "center" });
-		//this.game.time.events.add(Phaser.Timer.SECOND * 2, this.deathBonus, this);
+		this.bonusText = this.game.add.text(180, 150, 'GOOD JOB!', { font: "15px Arial", fill: "#ffffff", align: "center" });
+		this.game.time.events.add(Phaser.Timer.SECOND * 2, this.deathBonus, this);
 	}
 	deathBonus(){
+		this.bonusState = 0;
 		this.bonusText.kill();
-		this.randomTime = 0;
 	}
 	gameOver(){
 		this.gameoverscreen = this.game.add.sprite(60,40,'gameover');

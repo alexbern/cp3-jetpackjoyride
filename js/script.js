@@ -54,11 +54,11 @@
 	
 	var _Play2 = _interopRequireDefault(_Play);
 	
-	var _Menu = __webpack_require__(6);
+	var _Menu = __webpack_require__(7);
 	
 	var _Menu2 = _interopRequireDefault(_Menu);
 	
-	var _Credits = __webpack_require__(7);
+	var _Credits = __webpack_require__(8);
 	
 	var _Credits2 = _interopRequireDefault(_Credits);
 	
@@ -164,7 +164,7 @@
 	
 	var _Platform2 = _interopRequireDefault(_Platform);
 	
-	var _Coins = __webpack_require__(8);
+	var _Coins = __webpack_require__(6);
 	
 	var _Coins2 = _interopRequireDefault(_Coins);
 	
@@ -186,9 +186,6 @@
 		}
 	
 		_createClass(Play, [{
-			key: 'preload',
-			value: function preload() {}
-		}, {
 			key: 'create',
 			value: function create() {
 				this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -199,13 +196,16 @@
 				this.cointimer = 0;
 				this.coinTimeRange = 500;
 				this.bonusTeller = 0;
+				this.textBonus = this.game.add.text(100, 20, 'bonus: 0', { font: "15px Arial", fill: "#ffffff", align: "center" });
+				this.bonusView = this.textBonus.setText('bonus: 0');
+				this.bonusState = 0;
 				//DIFICULTY
 				this.deadStatus = 0;
 				this.speed = 140;
 				//BACKGROUND
 				this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 				this.background.autoScroll(-this.speed, 0);
-				this.text = this.game.add.text(350, 20, 'score: 0', { font: "15px Arial", fill: "#ffffff", align: "center" });
+				this.textScore = this.game.add.text(350, 20, 'score: 0', { font: "15px Arial", fill: "#ffffff", align: "center" });
 				//PLATFORMS
 				this.platforms = this.game.add.group();
 				this.intervalTime = 1400;
@@ -228,13 +228,12 @@
 				this.game.physics.arcade.collide(this.player, this.platforms);
 				//COLLISSION
 				this.game.physics.arcade.collide(this.coins, this.platforms);
-	
 				//SCORE OMHOOG
 				if (this.deadStatus == 0) {
 					this.score++;
 				}
 				//SCORE TEV SNELHEID
-				this.scoreView = this.text.setText('score: ' + this.score);
+				this.scoreView = this.textScore.setText('score: ' + this.score);
 				if (this.score / this.scoreRange == 1) {
 					this.scoreRange += 500;
 					this.speed += 20;
@@ -242,27 +241,17 @@
 				}
 				//COINS
 				this.cointimer++;
-				if (this.cointimer / this.coinTimeRange == 1) {
+				if (this.cointimer / this.coinTimeRange == 1 && this.bonusState == 0) {
 					this.coinTimeRange += this.game.rnd.integerInRange(100, 500);
 					this.initCoins();
 				}
-	
-				// this.timer++;
-				// this.timer = this.timer % this.intervalTime;
-	
-				// if (this.timer == 0){
-				// 	this.initPlatform();
-				// };
-	
-				// this.speed = this.speed + this.score/2000;
-	
 				//BONUSSES
 				if (this.game.physics.arcade.collide(this.player, this.coins)) {
 					this.coins.kill();
+					this.bonusState = 1;
 					this.randomTime = Phaser.Timer.SECOND * this.game.rnd.integerInRange(1, 5);
 					this.bonusTeller = this.game.time.events.add(this.randomTime, this.bonusPoint, this);
 				}
-	
 				//PLAYER GAMEPLAY
 				if (this.player.body.wasTouching.down) {
 					this.player.body.velocity.x = this.speed;
@@ -279,11 +268,6 @@
 					// this.platform.body.velocity.x = 0;
 					this.background.autoScroll(0, 0);
 				}
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				this.game.debug.text(this.game.time.events.duration, 32, 32);
 			}
 		}, {
 			key: 'initPlatform',
@@ -323,15 +307,14 @@
 			key: 'bonusPoint',
 			value: function bonusPoint() {
 				this.score += this.randomTime;
-				//TO DO: bonustekst sprite
-				//this.bonusText = this.game.add.text(180, 150, 'GOOD JOB!', { font: "15px Arial", fill: "#ffffff", align: "center" });
-				//this.game.time.events.add(Phaser.Timer.SECOND * 2, this.deathBonus, this);
+				this.bonusText = this.game.add.text(180, 150, 'GOOD JOB!', { font: "15px Arial", fill: "#ffffff", align: "center" });
+				this.game.time.events.add(Phaser.Timer.SECOND * 2, this.deathBonus, this);
 			}
 		}, {
 			key: 'deathBonus',
 			value: function deathBonus() {
+				this.bonusState = 0;
 				this.bonusText.kill();
-				this.randomTime = 0;
 			}
 		}, {
 			key: 'gameOver',
@@ -503,6 +486,51 @@
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
 	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Coins = (function (_Phaser$Sprite) {
+		_inherits(Coins, _Phaser$Sprite);
+	
+		function Coins(game, x, y) {
+			_classCallCheck(this, Coins);
+	
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Coins).call(this, game, x, y, 'spritesheetCoins'));
+	
+			_this.game.physics.arcade.enableBody(_this);
+			_this.anchor.setTo(0.5, 0.5);
+			_this.body.gravity.y = 1000;
+			_this.animations.add('turn', [0, 1, 2, 3]);
+			return _this;
+		}
+	
+		_createClass(Coins, [{
+			key: 'update',
+			value: function update() {
+				this.animations.play('turn', 10, true);
+			}
+		}]);
+	
+		return Coins;
+	})(Phaser.Sprite);
+	
+	exports.default = Coins;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	
@@ -540,7 +568,7 @@
 	            this.startButton.kill();
 	            this.highscoreButton.kill();
 	            this.howtoscreen = this.game.add.sprite(60, 40, 'howto');
-	            this.startText = this.game.add.text(240, 200, 'fly once to start', { font: "15px Arial", fill: "#ffffff", align: "center" });
+	            this.startText = this.game.add.text(240, 200, 'jump once to start', { font: "15px Arial", fill: "#ffffff", align: "center" });
 	            this.startText.anchor.setTo(0.5, 0.5);
 	            this.game.add.tween(this.startText.scale).to({ x: 1.2, y: 1.2 }, 2000, Phaser.Easing.Linear.NONE, true, 0, 500, true);
 	            //FLY START
@@ -566,7 +594,7 @@
 	exports.default = Menu;
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -624,51 +652,6 @@
 	})(Phaser.State);
 	
 	exports.default = Credits;
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Coins = (function (_Phaser$Sprite) {
-		_inherits(Coins, _Phaser$Sprite);
-	
-		function Coins(game, x, y) {
-			_classCallCheck(this, Coins);
-	
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Coins).call(this, game, x, y, 'spritesheetCoins'));
-	
-			_this.game.physics.arcade.enableBody(_this);
-			_this.anchor.setTo(0.5, 0.5);
-			_this.body.gravity.y = 1000;
-			_this.animations.add('turn', [0, 1, 2, 3]);
-			return _this;
-		}
-	
-		_createClass(Coins, [{
-			key: 'update',
-			value: function update() {
-				this.animations.play('turn', 10, true);
-			}
-		}]);
-	
-		return Coins;
-	})(Phaser.Sprite);
-	
-	exports.default = Coins;
 
 /***/ }
 /******/ ]);
