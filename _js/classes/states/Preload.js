@@ -16,18 +16,12 @@ export default class Preload extends Phaser.State{
 	this.load.image('gameover', 'assets/sprites/gameover.png');
 	this.load.image('howto', 'assets/sprites/howtoscreen.png');
 
-<<<<<<< HEAD
-		this.load.atlasJSONArray('spritesheet', 'assets/sprites/spritesheet.png', 'assets/sprites/spritesheet.json');
-		this.load.atlasJSONArray('spritesheetCoins', 'assets/sprites/coinSpritesheet.png', 'assets/sprites/coinSpritesheet.json');
-		this.load.atlasJSONArray('spritesheetMissile', 'assets/sprites/missileSpritesheet.png', 'assets/sprites/missileSpritesheet.json');		
-		
-		this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
-=======
+
 	this.load.atlasJSONArray('spritesheet', 'assets/sprites/spritesheet.png', 'assets/sprites/spritesheet.json');
 	this.load.atlasJSONArray('spritesheetCoins', 'assets/sprites/coinSpritesheet.png', 'assets/sprites/coinSpritesheet.json');
-
+	this.load.atlasJSONArray('spritesheetMissile', 'assets/sprites/missileSpritesheet.png', 'assets/sprites/missileSpritesheet.json');		
+		
 	this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
->>>>>>> 0b1c47d0d77001a899ca9acd7ed6d9c16c30afbf
 	}
 	onLoadComplete(){
 		this.game.state.start('Menu');

@@ -54,11 +54,11 @@
 
 	var _Play2 = _interopRequireDefault(_Play);
 
-	var _Menu = __webpack_require__(7);
+	var _Menu = __webpack_require__(8);
 
 	var _Menu2 = _interopRequireDefault(_Menu);
 
-	var _Credits = __webpack_require__(8);
+	var _Credits = __webpack_require__(9);
 
 	var _Credits2 = _interopRequireDefault(_Credits);
 
@@ -168,7 +168,7 @@
 
 	var _Coins2 = _interopRequireDefault(_Coins);
 
-	var _Missile = __webpack_require__(9);
+	var _Missile = __webpack_require__(7);
 
 	var _Missile2 = _interopRequireDefault(_Missile);
 
@@ -545,6 +545,64 @@
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Missile = (function (_Phaser$Sprite) {
+		_inherits(Missile, _Phaser$Sprite);
+
+		function Missile(game, x, y) {
+			_classCallCheck(this, Missile);
+
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Missile).call(this, game, x, y, 'spritesheetMissile'));
+
+			_this.game.physics.arcade.enableBody(_this);
+			_this.animations.add('warning', [2]);
+			_this.animations.add('startpoint', [1]);
+			_this.animations.add('raket', [0]);
+
+			_this.trap = _this.animations.play('startpoint', 1, false);
+
+			_this.game.add.tween(_this.trap).to({ y: 50 }, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
+			_this.startTime = _this.game.time.events.add(Phaser.Timer.SECOND * 2, _this.timesUp, _this);
+			return _this;
+		}
+
+		_createClass(Missile, [{
+			key: 'timesUp',
+			value: function timesUp() {
+				this.animations.play('warning', 1, false);
+				this.timeup = this.game.time.events.add(Phaser.Timer.SECOND * 1, this.launchMissle, this);
+			}
+		}, {
+			key: 'launchMissle',
+			value: function launchMissle() {
+				// this.game.add.tween(this.trap).to({this.y}, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
+				this.animations.play('raket', 1, false);
+				this.body.velocity.x -= 500;
+			}
+		}]);
+
+		return Missile;
+	})(Phaser.Sprite);
+
+	exports.default = Missile;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 
@@ -614,7 +672,7 @@
 	exports.default = Menu;
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -666,51 +724,6 @@
 	})(Phaser.State);
 
 	exports.default = Credits;
-
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Missile = (function (_Phaser$Sprite) {
-		_inherits(Missile, _Phaser$Sprite);
-
-		function Missile(game, x, y) {
-			_classCallCheck(this, Missile);
-
-			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Missile).call(this, game, x, y, 'spritesheetMissile'));
-
-			_this.animations.add('warning', [2]);
-			_this.animations.add('startpoint', [1]);
-			_this.animations.add('raket', [0]);
-			_this.trap = _this.animations.play('warning', 10, true);
-			return _this;
-		}
-
-		_createClass(Missile, [{
-			key: 'update',
-			value: function update() {
-				this.game.add.tween(this.trap).to({ y: 50 }, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
-			}
-		}]);
-
-		return Missile;
-	})(Phaser.Sprite);
-
-	exports.default = Missile;
 
 /***/ }
 /******/ ]);
