@@ -67,12 +67,11 @@
 	var game = undefined;
 
 	var init = function init() {
-		game = new Phaser.Game(480, 320, Phaser.AUTO);
-
-		game.state.add('Preload', _Preload2.default, true);
-		game.state.add('Menu', _Menu2.default, false);
-		game.state.add('Credits', _Credits2.default, false);
-		game.state.add('Play', _Play2.default, false);
+	    game = new Phaser.Game(480, 320, Phaser.AUTO);
+	    game.state.add('Preload', _Preload2.default, true);
+	    game.state.add('Menu', _Menu2.default, false);
+	    game.state.add('Credits', _Credits2.default, false);
+	    game.state.add('Play', _Play2.default, false);
 	};
 
 	init();
@@ -574,7 +573,7 @@
 	            this.startButton.kill();
 	            this.highscoreButton.kill();
 	            this.howtoscreen = this.game.add.sprite(60, 40, 'howto');
-	            this.startText = this.game.add.text(240, 200, 'jump once to start', { font: "15px Arial", fill: "#ffffff", align: "center" });
+	            this.startText = this.game.add.text(240, 200, 'jump once to start', { font: '15px Arial', fill: '#ffffff', align: 'center' });
 	            this.startText.anchor.setTo(0.5, 0.5);
 	            this.game.add.tween(this.startText.scale).to({ x: 1.2, y: 1.2 }, 2000, Phaser.Easing.Linear.NONE, true, 0, 500, true);
 	            //FLY START
@@ -603,7 +602,7 @@
 /* 8 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -627,28 +626,22 @@
 	    }
 
 	    _createClass(Credits, [{
-	        key: "create",
+	        key: 'create',
 	        value: function create() {
 	            this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 	            this.background.autoScroll(-15, 0);
-
-	            var credits = this.game.add.text(100, 100, "here are the credits ....", {
-	                font: "20px Arial",
-	                fill: "#fff",
-	                align: "center"
-	            });
 
 	            //START KNOP
 	            this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this);
 	            this.backButton = this.game.add.button(260, 240, 'back', this.backClick, this);
 	        }
 	    }, {
-	        key: "startClick",
+	        key: 'startClick',
 	        value: function startClick() {
 	            this.game.state.start('Play');
 	        }
 	    }, {
-	        key: "backClick",
+	        key: 'backClick',
 	        value: function backClick() {
 	            this.game.state.start('Menu');
 	        }

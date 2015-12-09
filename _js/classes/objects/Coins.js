@@ -1,5 +1,5 @@
 export default class Coins extends Phaser.Sprite{
-	constructor(game, x, y){
+	constructor(game,x,y){
 		super(game, x, y, 'spritesheetCoins');
 		this.game.physics.arcade.enableBody(this);
 		this.anchor.setTo(0.5, 0.5);
