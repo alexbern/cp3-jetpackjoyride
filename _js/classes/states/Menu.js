@@ -9,6 +9,11 @@ export default class Menu extends Phaser.State{
         this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this); 
         this.highscoreButton = this.game.add.button(260, 240, 'highscore', this.creditsClick, this);
     }
+    /*
+    formClick(){
+        console.log("form");
+        this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this); 
+    }*/
 
     startClick() { 
         this.title.kill();

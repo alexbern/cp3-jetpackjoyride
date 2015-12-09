@@ -248,6 +248,8 @@
 				//BONUSSES
 				if (this.game.physics.arcade.collide(this.player, this.coins)) {
 					this.coins.kill();
+					this.bonusText = this.game.add.text(180, 150, 'GOOD JOB!', { font: "15px Arial", fill: "#ffffff", align: "center" });
+					this.game.time.events.add(Phaser.Timer.SECOND * 2, this.deathBonus, this);
 					this.bonusState = 1;
 					this.randomTime = Phaser.Timer.SECOND * this.game.rnd.integerInRange(1, 5);
 					this.bonusTeller = this.game.time.events.add(this.randomTime, this.bonusPoint, this);
@@ -307,8 +309,6 @@
 			key: 'bonusPoint',
 			value: function bonusPoint() {
 				this.score += this.randomTime;
-				this.bonusText = this.game.add.text(180, 150, 'GOOD JOB!', { font: "15px Arial", fill: "#ffffff", align: "center" });
-				this.game.time.events.add(Phaser.Timer.SECOND * 2, this.deathBonus, this);
 			}
 		}, {
 			key: 'deathBonus',
@@ -561,6 +561,12 @@
 	            this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this);
 	            this.highscoreButton = this.game.add.button(260, 240, 'highscore', this.creditsClick, this);
 	        }
+	        /*
+	        formClick(){
+	            console.log("form");
+	            this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this); 
+	        }*/
+	
 	    }, {
 	        key: 'startClick',
 	        value: function startClick() {
