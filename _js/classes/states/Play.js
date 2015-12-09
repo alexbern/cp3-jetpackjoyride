@@ -76,8 +76,10 @@ export default class Play extends Phaser.State{
         }
         //BONUSSES
         if (this.game.physics.arcade.collide(this.player, this.coins)) {
-            this.coins.kill(); 
-            this.bonusText = this.game.add.text(180, 150, 'GOOD JOB!', { font: "15px Arial", fill: "#ffffff", align: "center" });
+            this.coins.kill();
+            let textArray = ['GOOD JOB!','NICE','WELL DONE']; 
+            let selectText = this.game.rnd.integerInRange(0, 2);
+            this.bonusText = this.game.add.text(180, 150, textArray[selectText], { font: "15px Arial", fill: "#ffffff", align: "center" });
             this.game.time.events.add(Phaser.Timer.SECOND * 2, this.deathBonus, this);
             this.bonusState = 1;        
             this.randomTime = Phaser.Timer.SECOND * this.game.rnd.integerInRange(1,5);
