@@ -125,6 +125,7 @@
 
 				this.load.atlasJSONArray('spritesheet', 'assets/sprites/spritesheet.png', 'assets/sprites/spritesheet.json');
 				this.load.atlasJSONArray('spritesheetCoins', 'assets/sprites/coinSpritesheet.png', 'assets/sprites/coinSpritesheet.json');
+				this.load.atlasJSONArray('spritesheetMissile', 'assets/sprites/missileSpritesheet.png', 'assets/sprites/missileSpritesheet.json');
 
 				this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
 			}
@@ -167,6 +168,10 @@
 	var _Coins = __webpack_require__(6);
 
 	var _Coins2 = _interopRequireDefault(_Coins);
+
+	var _Missile = __webpack_require__(9);
+
+	var _Missile2 = _interopRequireDefault(_Missile);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -219,6 +224,7 @@
 				this.initGround();
 				this.initPlayer();
 				this.initPlatform();
+				this.initMissile();
 			}
 		}, {
 			key: 'update',
@@ -298,6 +304,15 @@
 				var coinGroup = undefined;
 				this.coins = new _Coins2.default(this.game, 500, 100);
 				this.add.existing(this.coins);
+			}
+		}, {
+			key: 'initMissile',
+			value: function initMissile() {
+				var randomPos = this.game.rnd.integerInRange(200, 80);
+				this.position = randomPos;
+				this.missile = new _Missile2.default(this.game, 420, randomPos);
+				this.add.existing(this.missile);
+				this.game.add.tween(this.missile).to({ y: this.position - 20 }, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
 			}
 		}, {
 			key: 'powerupHandler',
@@ -658,6 +673,51 @@
 	})(Phaser.State);
 
 	exports.default = Credits;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Missile = (function (_Phaser$Sprite) {
+		_inherits(Missile, _Phaser$Sprite);
+
+		function Missile(game, x, y) {
+			_classCallCheck(this, Missile);
+
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Missile).call(this, game, x, y, 'spritesheetMissile'));
+
+			_this.animations.add('warning', [2]);
+			_this.animations.add('startpoint', [1]);
+			_this.animations.add('raket', [0]);
+			_this.trap = _this.animations.play('warning', 10, true);
+			return _this;
+		}
+
+		_createClass(Missile, [{
+			key: 'update',
+			value: function update() {
+				this.game.add.tween(this.trap).to({ y: 50 }, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
+			}
+		}]);
+
+		return Missile;
+	})(Phaser.Sprite);
+
+	exports.default = Missile;
 
 /***/ }
 /******/ ]);

@@ -2,6 +2,7 @@ import Ground from '../objects/Ground';
 import Player from '../objects/Player';
 import Platform from '../objects/Platform';
 import Coins from '../objects/Coins';
+import Missile from '../objects/Missile';
 
 export default class Play extends Phaser.State{
 	create(){
@@ -36,6 +37,7 @@ export default class Play extends Phaser.State{
 		this.initGround();
 		this.initPlayer();
 		this.initPlatform();
+		this.initMissile();
 	}
 	update(){
 		//FYSICS
@@ -105,6 +107,14 @@ export default class Play extends Phaser.State{
 		let coinGroup;
 		this.coins = new Coins(this.game, 500, 100);
 		this.add.existing(this.coins);
+	}
+	initMissile(){
+		let randomPos = this.game.rnd.integerInRange(200, 80);
+		this.position = randomPos;
+		this.missile = new Missile(this.game, 420, randomPos);
+		this.add.existing(this.missile);
+		this.game.add.tween(this.missile).to({y:this.position-20}, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true); 
+
 	}
 	powerupHandler(){
 		this.coins.kill(); 
