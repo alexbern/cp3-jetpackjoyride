@@ -85,7 +85,7 @@
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	    value: true
 	});
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -95,47 +95,47 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Preload = (function (_Phaser$State) {
-		_inherits(Preload, _Phaser$State);
+	    _inherits(Preload, _Phaser$State);
 
-		function Preload() {
-			_classCallCheck(this, Preload);
+	    function Preload() {
+	        _classCallCheck(this, Preload);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(Preload).apply(this, arguments));
-		}
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Preload).apply(this, arguments));
+	    }
 
-		_createClass(Preload, [{
-			key: 'preload',
-			value: function preload() {
+	    _createClass(Preload, [{
+	        key: 'preload',
+	        value: function preload() {
 
-				//this.load.spritesheet('player', 'assets/sprites/spritesheet.png', 29, 34, 2);
-				this.load.image('ground', 'assets/sprites/ground.png');
-				this.load.image('platform', 'assets/sprites/platform.png');
+	            //this.load.spritesheet('player', 'assets/sprites/spritesheet.png', 29, 34, 2);
+	            this.load.image('ground', 'assets/sprites/ground.png');
+	            this.load.image('platform', 'assets/sprites/platform.png');
 
-				this.load.image('background', 'assets/sprites/bg.png');
+	            this.load.image('background', 'assets/sprites/bg.png');
 
-				this.load.image('logo', 'assets/sprites/logo.png');
-				this.load.image('highscore', 'assets/sprites/bhighscore.jpg');
-				this.load.image('play', 'assets/sprites/bplay.jpg');
-				this.load.image('playagain', 'assets/sprites/bplayagain.png');
-				this.load.image('back', 'assets/sprites/bback.jpg');
+	            this.load.image('logo', 'assets/sprites/logo.png');
+	            this.load.image('highscore', 'assets/sprites/bhighscore.jpg');
+	            this.load.image('play', 'assets/sprites/bplay.jpg');
+	            this.load.image('playagain', 'assets/sprites/bplayagain.png');
+	            this.load.image('back', 'assets/sprites/bback.jpg');
 
-				this.load.image('gameover', 'assets/sprites/gameover.png');
-				this.load.image('howto', 'assets/sprites/howtoscreen.png');
+	            this.load.image('gameover', 'assets/sprites/gameover.png');
+	            this.load.image('howto', 'assets/sprites/howtoscreen.png');
 
-				this.load.atlasJSONArray('spritesheet', 'assets/sprites/spritesheet.png', 'assets/sprites/spritesheet.json');
-				this.load.atlasJSONArray('spritesheetCoins', 'assets/sprites/coinSpritesheet.png', 'assets/sprites/coinSpritesheet.json');
-				this.load.atlasJSONArray('spritesheetMissile', 'assets/sprites/missileSpritesheet.png', 'assets/sprites/missileSpritesheet.json');
+	            this.load.atlasJSONArray('spritesheet', 'assets/sprites/spritesheet.png', 'assets/sprites/spritesheet.json');
+	            this.load.atlasJSONArray('spritesheetCoins', 'assets/sprites/coinSpritesheet.png', 'assets/sprites/coinSpritesheet.json');
+	            this.load.atlasJSONArray('spritesheetMissile', 'assets/sprites/missileSpritesheet.png', 'assets/sprites/missileSpritesheet.json');
 
-				this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
-			}
-		}, {
-			key: 'onLoadComplete',
-			value: function onLoadComplete() {
-				this.game.state.start('Menu');
-			}
-		}]);
+	            this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
+	        }
+	    }, {
+	        key: 'onLoadComplete',
+	        value: function onLoadComplete() {
+	            this.game.state.start('Menu');
+	        }
+	    }]);
 
-		return Preload;
+	    return Preload;
 	})(Phaser.State);
 
 	exports.default = Preload;
@@ -149,7 +149,7 @@
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	    value: true
 	});
 
 	var _Ground = __webpack_require__(3);
@@ -181,171 +181,185 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Play = (function (_Phaser$State) {
-		_inherits(Play, _Phaser$State);
+	    _inherits(Play, _Phaser$State);
 
-		function Play() {
-			_classCallCheck(this, Play);
+	    function Play() {
+	        _classCallCheck(this, Play);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(Play).apply(this, arguments));
-		}
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Play).apply(this, arguments));
+	    }
 
-		_createClass(Play, [{
-			key: 'create',
-			value: function create() {
-				this.game.physics.startSystem(Phaser.Physics.ARCADE);
-				//SCORE
-				this.score = 0;
-				this.scoreRange = 500;
-				//COINS
-				this.cointimer = 0;
-				this.coinTimeRange = 500;
-				this.bonusTeller = 0;
-				this.textBonus = this.game.add.text(100, 20, 'bonus: 0', { font: "15px Arial", fill: "#ffffff", align: "center" });
-				this.bonusView = this.textBonus.setText('bonus: 0');
-				this.bonusState = 0;
-				//DIFICULTY
-				this.deadStatus = 0;
-				this.speed = 140;
-				//BACKGROUND
-				this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
-				this.background.autoScroll(-this.speed, 0);
-				this.textScore = this.game.add.text(350, 20, 'score: 0', { font: "15px Arial", fill: "#ffffff", align: "center" });
-				//PLATFORMS
-				this.platforms = this.game.add.group();
-				this.intervalTime = 1400;
-				this.timer = this.game.time.create(false);
-				this.timer.loop(this.intervalTime, this.initPlatform, this);
-				this.timer.start();
-				this.timer = 500;
-				// this.platformGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * this.intervalTime, this.initPlatform, this);
-				//this.platformGenerator.timer.start();
-				//STARTUP
-				this.initGround();
-				this.initPlayer();
-				this.initPlatform();
-				this.initMissile();
-			}
-		}, {
-			key: 'update',
-			value: function update() {
-				//FYSICS
-				this.game.physics.arcade.collide(this.player, this.ground);
-				this.game.physics.arcade.collide(this.player, this.platforms);
-				//COLLISSION
-				this.game.physics.arcade.collide(this.coins, this.platforms);
-				//SCORE OMHOOG
-				if (this.deadStatus == 0) {
-					this.score++;
-				}
-				//SCORE TEV SNELHEID
-				this.scoreView = this.textScore.setText('score: ' + this.score);
-				if (this.score / this.scoreRange == 1) {
-					this.scoreRange += 500;
-					this.speed += 20;
-					this.intervalTime -= 20;
-				}
-				//COINS
-				this.cointimer++;
-				if (this.cointimer / this.coinTimeRange == 1 && this.bonusState == 0) {
-					this.coinTimeRange += this.game.rnd.integerInRange(100, 500);
-					this.initCoins();
-				}
-				//BONUSSES
-				if (this.game.physics.arcade.collide(this.player, this.coins)) {
-					this.coins.kill();
-					this.bonusText = this.game.add.text(180, 150, 'GOOD JOB!', { font: "15px Arial", fill: "#ffffff", align: "center" });
-					this.game.time.events.add(Phaser.Timer.SECOND * 2, this.deathBonus, this);
-					this.bonusState = 1;
-					this.randomTime = Phaser.Timer.SECOND * this.game.rnd.integerInRange(1, 5);
-					this.bonusTeller = this.game.time.events.add(this.randomTime, this.bonusPoint, this);
-				}
-				//PLAYER GAMEPLAY
-				if (this.player.body.wasTouching.down) {
-					this.player.body.velocity.x = this.speed;
-				} else {
-					this.player.body.velocity.x = 0;
-				}
-				if (this.player.y > 320) {
-					this.deadStatus = 1;
-					this.gameOver();
-				}
-				if (this.deadStatus == 0) {
-					this.platform.body.velocity.x = -this.speed;
-				} else {
-					// this.platform.body.velocity.x = 0;
-					this.background.autoScroll(0, 0);
-				}
-			}
-		}, {
-			key: 'initPlatform',
-			value: function initPlatform() {
-				var platformY = undefined;
-				platformY = this.game.rnd.integerInRange(200, 80);
-				this.platform = new _Platform2.default(this.game, 480, platformY, 'platform');
-				this.platforms.add(this.platform);
-			}
-		}, {
-			key: 'initGround',
-			value: function initGround() {
-				this.ground = new _Ground2.default(this.game, 0, 200, 'ground');
-				this.ground.body.velocity.x = -this.speed;
-				this.add.existing(this.ground);
-			}
-		}, {
-			key: 'initPlayer',
-			value: function initPlayer() {
-				this.player = new _Player2.default(this.game, 100, 185);
-				this.add.existing(this.player);
-			}
-		}, {
-			key: 'initCoins',
-			value: function initCoins() {
-				var coinGroup = undefined;
-				this.coins = new _Coins2.default(this.game, 500, 100);
-				this.add.existing(this.coins);
-			}
-		}, {
-			key: 'initMissile',
-			value: function initMissile() {
-				var randomPos = this.game.rnd.integerInRange(200, 80);
-				this.position = randomPos;
-				this.missile = new _Missile2.default(this.game, 420, randomPos);
-				this.add.existing(this.missile);
-				this.game.add.tween(this.missile).to({ y: this.position - 20 }, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
-			}
-		}, {
-			key: 'powerupHandler',
-			value: function powerupHandler() {
-				this.coins.kill();
-				this.bonusPoint();
-			}
-		}, {
-			key: 'bonusPoint',
-			value: function bonusPoint() {
-				this.score += this.randomTime;
-			}
-		}, {
-			key: 'deathBonus',
-			value: function deathBonus() {
-				this.bonusState = 0;
-				this.bonusText.kill();
-			}
-		}, {
-			key: 'gameOver',
-			value: function gameOver() {
-				this.gameoverscreen = this.game.add.sprite(60, 40, 'gameover');
-				this.finalscore = this.game.add.text(170, 140, 'your score: ' + this.score, { font: "20px Arial", fill: "#fff", align: "center" });
-				this.playagainButton = this.game.add.button(130, 190, 'playagain', this.startagainClick, this);
-				this.scoreView.kill();
-			}
-		}, {
-			key: 'startagainClick',
-			value: function startagainClick() {
-				this.game.state.start('Play');
-			}
-		}]);
+	    _createClass(Play, [{
+	        key: 'create',
+	        value: function create() {
+	            this.game.physics.startSystem(Phaser.Physics.ARCADE);
+	            //SCORE
+	            this.score = 0;
+	            this.scoreRange = 500;
+	            //COINS
+	            this.cointimer = 0;
+	            this.coinTimeRange = 500;
+	            this.bonusTeller = 0;
+	            this.textBonus = this.game.add.text(100, 20, 'bonus: 0', { font: "15px Arial", fill: "#ffffff", align: "center" });
+	            this.bonusView = this.textBonus.setText('bonus: 0');
+	            this.bonusState = 0;
+	            //DIFICULTY
+	            this.deadStatus = 0;
+	            this.speed = 140;
+	            //BACKGROUND
+	            this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
+	            this.background.autoScroll(-this.speed, 0);
+	            this.textScore = this.game.add.text(350, 20, 'score: 0', { font: "15px Arial", fill: "#ffffff", align: "center" });
+	            //PLATFORMS
+	            this.platforms = this.game.add.group();
+	            this.intervalTime = 1400;
+	            this.timer = this.game.time.create(false);
+	            this.timer.loop(this.intervalTime, this.initPlatform, this);
+	            this.timer.start();
+	            this.timer = 500;
+	            // this.platformGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * this.intervalTime, this.initPlatform, this);
+	            //this.platformGenerator.timer.start();
+	            //STARTUP
+	            this.initGround();
+	            this.initPlayer();
+	            this.initPlatform();
+	            //MISSLES
+	            this.missiles = this.game.add.group();
+	            this.intervalTimeMissle = 3000;
+	            this.timerMissle = this.game.time.create(false);
+	            this.timerMissle.loop(this.intervalTimeMissle, this.initMissile, this);
+	            this.timerMissle.start();
+	            this.timerMissle = 2000;
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update() {
+	            //FYSICS
+	            this.game.physics.arcade.collide(this.player, this.ground);
+	            this.game.physics.arcade.collide(this.player, this.platforms);
+	            //COLLISSION
+	            this.game.physics.arcade.collide(this.coins, this.platforms);
+	            if (this.missiles) {
+	                var collideMissile = this.game.physics.arcade.collide(this.player, this.missiles);
+	                if (collideMissile) {
+	                    this.gameOver();
+	                }
+	            }
+	            //SCORE OMHOOG
+	            if (this.deadStatus == 0) {
+	                this.score++;
+	            }
+	            //SCORE TEV SNELHEID
+	            this.scoreView = this.textScore.setText('score: ' + this.score);
+	            if (this.score / this.scoreRange == 1) {
+	                this.scoreRange += 500;
+	                this.speed += 20;
+	                this.intervalTime -= 20;
+	            }
+	            //COINS
+	            this.cointimer++;
+	            if (this.cointimer / this.coinTimeRange == 1 && this.bonusState == 0) {
+	                this.coinTimeRange += this.game.rnd.integerInRange(100, 500);
+	                this.initCoins();
+	            }
+	            //BONUSSES
+	            if (this.game.physics.arcade.collide(this.player, this.coins)) {
+	                this.coins.kill();
+	                this.bonusText = this.game.add.text(180, 150, 'GOOD JOB!', { font: "15px Arial", fill: "#ffffff", align: "center" });
+	                this.game.time.events.add(Phaser.Timer.SECOND * 2, this.deathBonus, this);
+	                this.bonusState = 1;
+	                this.randomTime = Phaser.Timer.SECOND * this.game.rnd.integerInRange(1, 5);
+	                this.bonusTeller = this.game.time.events.add(this.randomTime, this.bonusPoint, this);
+	            }
+	            //PLAYER GAMEPLAY
+	            if (this.player.body.wasTouching.down) {
+	                this.player.body.velocity.x = this.speed;
+	            } else {
+	                this.player.body.velocity.x = 0;
+	            }
+	            if (this.player.y > 320) {
+	                this.deadStatus = 1;
+	                this.gameOver();
+	            }
+	            if (this.deadStatus == 0) {
+	                this.platform.body.velocity.x = -this.speed;
+	            } else {
+	                // this.platform.body.velocity.x = 0;
+	                this.background.autoScroll(0, 0);
+	            }
+	        }
+	    }, {
+	        key: 'initPlatform',
+	        value: function initPlatform() {
+	            var platformY = undefined;
+	            platformY = this.game.rnd.integerInRange(200, 80);
+	            this.platform = new _Platform2.default(this.game, 480, platformY, 'platform');
+	            this.platforms.add(this.platform);
+	        }
+	    }, {
+	        key: 'initGround',
+	        value: function initGround() {
+	            this.ground = new _Ground2.default(this.game, 0, 200, 'ground');
+	            this.ground.body.velocity.x = -this.speed;
+	            this.add.existing(this.ground);
+	        }
+	    }, {
+	        key: 'initPlayer',
+	        value: function initPlayer() {
+	            this.player = new _Player2.default(this.game, 100, 185);
+	            this.add.existing(this.player);
+	        }
+	    }, {
+	        key: 'initCoins',
+	        value: function initCoins() {
+	            var coinGroup = undefined;
+	            this.coins = new _Coins2.default(this.game, 500, 100);
+	            this.add.existing(this.coins);
+	        }
+	    }, {
+	        key: 'initMissile',
+	        value: function initMissile() {
+	            var randomPos = this.game.rnd.integerInRange(200, 80);
+	            this.position = randomPos;
+	            this.missile = new _Missile2.default(this.game, 420, randomPos);
+	            this.add.existing(this.missile);
+	            this.game.add.tween(this.missile).to({ y: this.position - 20 }, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
+	            this.missiles.add(this.missile);
+	        }
+	    }, {
+	        key: 'powerupHandler',
+	        value: function powerupHandler() {
+	            this.coins.kill();
+	            this.bonusPoint();
+	        }
+	    }, {
+	        key: 'bonusPoint',
+	        value: function bonusPoint() {
+	            this.score += this.randomTime;
+	        }
+	    }, {
+	        key: 'deathBonus',
+	        value: function deathBonus() {
+	            this.bonusState = 0;
+	            this.bonusText.kill();
+	        }
+	    }, {
+	        key: 'gameOver',
+	        value: function gameOver() {
+	            this.gameoverscreen = this.game.add.sprite(60, 40, 'gameover');
+	            this.finalscore = this.game.add.text(170, 140, 'your score: ' + this.score, { font: "20px Arial", fill: "#fff", align: "center" });
+	            this.playagainButton = this.game.add.button(130, 190, 'playagain', this.startagainClick, this);
+	            this.missile.kill();
+	            this.scoreView.kill();
+	        }
+	    }, {
+	        key: 'startagainClick',
+	        value: function startagainClick() {
+	            this.game.state.start('Play');
+	        }
+	    }]);
 
-		return Play;
+	    return Play;
 	})(Phaser.State);
 
 	exports.default = Play;
@@ -568,8 +582,6 @@
 			_this.animations.add('raket', [0]);
 
 			_this.trap = _this.animations.play('startpoint', 1, false);
-
-			_this.game.add.tween(_this.trap).to({ y: 50 }, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
 			_this.startTime = _this.game.time.events.add(Phaser.Timer.SECOND * 2, _this.timesUp, _this);
 			return _this;
 		}
@@ -583,7 +595,6 @@
 		}, {
 			key: 'launchMissle',
 			value: function launchMissle() {
-				// this.game.add.tween(this.trap).to({this.y}, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
 				this.animations.play('raket', 1, false);
 				this.body.velocity.x -= 500;
 			}
