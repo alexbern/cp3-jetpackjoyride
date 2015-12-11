@@ -44,6 +44,11 @@ export default class Play extends Phaser.State{
         this.timerMissle.loop(this.intervalTimeMissle, this.initMissile, this);
         this.timerMissle.start();
         this.timerMissle = 2000;
+
+        //this.introSound = this.game.add.audio('musicsound');
+        //this.introSound.play();
+        
+        this.coinSound = this.game.add.audio('coinsound');
     }
     update(){
         //FYSICS
@@ -76,6 +81,7 @@ export default class Play extends Phaser.State{
         }
         //BONUSSES
         if (this.game.physics.arcade.collide(this.player, this.coins)) {
+            this.coinSound.play();
             this.coins.kill();
             let textArray = ['GOOD JOB!','NICE','WELL DONE']; 
             let selectText = this.game.rnd.integerInRange(0, 2);
@@ -123,6 +129,7 @@ export default class Play extends Phaser.State{
         this.add.existing(this.coins);
     }
     initMissile(){
+        
         let randomPos = this.game.rnd.integerInRange(200, 80);
         this.position = randomPos;
         this.missile = new Missile(this.game, 420, randomPos);
@@ -145,6 +152,7 @@ export default class Play extends Phaser.State{
         this.gameoverscreen = this.game.add.sprite(60,40,'gameover');
         this.finalscore = this.game.add.text(170, 140, 'your score: ' + this.score, { font: "20px Arial", fill: "#fff", align: "center" });
         this.playagainButton = this.game.add.button(130, 190, 'playagain', this.startagainClick, this); 
+        this.player.kill();
         this.missile.kill();
         this.scoreView.kill();
     }

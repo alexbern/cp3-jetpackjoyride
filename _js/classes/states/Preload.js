@@ -18,7 +18,14 @@ export default class Preload extends Phaser.State{
 
     this.load.atlasJSONArray('spritesheet', 'assets/sprites/spritesheet.png', 'assets/sprites/spritesheet.json');
     this.load.atlasJSONArray('spritesheetCoins', 'assets/sprites/coinSpritesheet.png', 'assets/sprites/coinSpritesheet.json');
-    this.load.atlasJSONArray('spritesheetMissile', 'assets/sprites/missileSpritesheet.png', 'assets/sprites/missileSpritesheet.json');      
+    this.load.atlasJSONArray('spritesheetMissile', 'assets/sprites/missileSpritesheet.png', 'assets/sprites/missileSpritesheet.json'); 
+
+    this.load.audio('musicsound', 'assets/sound/music.wav');  
+    this.load.audio('missilesound', 'assets/sound/fire.wav');  
+    this.load.audio('buttonsound', 'assets/sound/knop.wav'); 
+    this.load.audio('coinsound', 'assets/sound/coin.wav'); 
+    this.load.audio('stapsound', 'assets/sound/stap.wav');   
+    this.load.audio('jetpacksound', 'assets/sound/jetpack.wav');      
         
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     }

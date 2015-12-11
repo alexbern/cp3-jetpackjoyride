@@ -8,14 +8,15 @@ export default class Menu extends Phaser.State{
         //START KNOP
         this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this); 
         this.highscoreButton = this.game.add.button(260, 240, 'highscore', this.creditsClick, this);
-    }
-    /*
-    formClick(){
-        console.log("form");
-        this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this); 
-    }*/
 
+        this.buttonSound = this.game.add.audio('buttonsound');
+        this.introSound = this.game.add.audio('musicsound');
+        this.introSound.play();
+        console.log(this.introSound);
+        console.log(this.buttonSound);
+    }
     startClick() { 
+        this.buttonSound.play();
         this.title.kill();
         this.startButton.kill();
         this.highscoreButton.kill();
@@ -29,9 +30,11 @@ export default class Menu extends Phaser.State{
         this.flykey.onDown.add(this.startGame, this);
     }
     startGame(){
+        this.buttonSound.play();
         this.game.state.start('Play');
     }
     creditsClick() { 
+        this.buttonSound.play();
         this.game.state.start('Credits');
     }
 }

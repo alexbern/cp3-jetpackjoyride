@@ -6,12 +6,16 @@ export default class Credits extends Phaser.State{
          //START KNOP
         this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this); 
         this.backButton = this.game.add.button(260, 240, 'back', this.backClick, this); 
+
+        this.buttonSound = this.game.add.audio('buttonsound');
     }
     startClick() { 
+        this.buttonSound.play();
         this.game.state.start('Play');
     }
     backClick() { 
-         this.game.state.start('Menu');
+        this.buttonSound.play();
+        this.game.state.start('Menu');
     }
 
 }

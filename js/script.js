@@ -134,6 +134,13 @@
 	            this.load.atlasJSONArray('spritesheetCoins', 'assets/sprites/coinSpritesheet.png', 'assets/sprites/coinSpritesheet.json');
 	            this.load.atlasJSONArray('spritesheetMissile', 'assets/sprites/missileSpritesheet.png', 'assets/sprites/missileSpritesheet.json');
 
+	            this.load.audio('musicsound', 'assets/sound/music.wav');
+	            this.load.audio('missilesound', 'assets/sound/fire.wav');
+	            this.load.audio('buttonsound', 'assets/sound/knop.wav');
+	            this.load.audio('coinsound', 'assets/sound/coin.wav');
+	            this.load.audio('stapsound', 'assets/sound/stap.wav');
+	            this.load.audio('jetpacksound', 'assets/sound/jetpack.wav');
+
 	            this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
 	        }
 	    }, {
@@ -238,6 +245,11 @@
 	            this.timerMissle.loop(this.intervalTimeMissle, this.initMissile, this);
 	            this.timerMissle.start();
 	            this.timerMissle = 2000;
+
+	            //this.introSound = this.game.add.audio('musicsound');
+	            //this.introSound.play();
+
+	            this.coinSound = this.game.add.audio('coinsound');
 	        }
 	    }, {
 	        key: 'update',
@@ -272,6 +284,7 @@
 	            }
 	            //BONUSSES
 	            if (this.game.physics.arcade.collide(this.player, this.coins)) {
+	                this.coinSound.play();
 	                this.coins.kill();
 	                var textArray = ['GOOD JOB!', 'NICE', 'WELL DONE'];
 	                var selectText = this.game.rnd.integerInRange(0, 2);
@@ -329,6 +342,7 @@
 	    }, {
 	        key: 'initMissile',
 	        value: function initMissile() {
+
 	            var randomPos = this.game.rnd.integerInRange(200, 80);
 	            this.position = randomPos;
 	            this.missile = new _Missile2.default(this.game, 420, randomPos);
@@ -359,6 +373,7 @@
 	            this.gameoverscreen = this.game.add.sprite(60, 40, 'gameover');
 	            this.finalscore = this.game.add.text(170, 140, 'your score: ' + this.score, { font: "20px Arial", fill: "#fff", align: "center" });
 	            this.playagainButton = this.game.add.button(130, 190, 'playagain', this.startagainClick, this);
+	            this.player.kill();
 	            this.missile.kill();
 	            this.scoreView.kill();
 	        }
@@ -452,6 +467,9 @@
 			_this.animations.add('jump', [3]);
 			_this.animations.add('jetpack', [2]);
 
+			_this.stepSound = _this.game.add.audio('stapsound');
+			_this.jetpackSound = _this.game.add.audio('jetpacksound');
+
 			return _this;
 		}
 
@@ -460,6 +478,7 @@
 			value: function update() {
 				if (this.body.wasTouching.down) {
 					this.jumpCount = 0;
+					this.stepSound.play();
 					this.animations.play('run', 10, true);
 				}
 			}
@@ -470,6 +489,7 @@
 					this.body.velocity.y = -350;
 					this.jumpCount++;
 					this.animations.play('jetpack', 1, true);
+					this.jetpackSound.play();
 				}
 			}
 		}]);
@@ -593,6 +613,8 @@
 
 			_this.trap = _this.animations.play('startpoint', 1, false);
 			_this.startTime = _this.game.time.events.add(Phaser.Timer.SECOND * 2, _this.timesUp, _this);
+
+			_this.missileSound = _this.game.add.audio('missilesound');
 			return _this;
 		}
 
@@ -600,7 +622,8 @@
 			key: 'timesUp',
 			value: function timesUp() {
 				this.animations.play('warning', 1, false);
-				this.timeup = this.game.time.events.add(Phaser.Timer.SECOND * 1, this.launchMissle, this);
+				this.timeup = this.game.time.events.add(Phaser.Timer.SECOND * 0.5, this.launchMissle, this);
+				this.missileSound.play();
 			}
 		}, {
 			key: 'launchMissle',
@@ -653,16 +676,17 @@
 	            //START KNOP
 	            this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this);
 	            this.highscoreButton = this.game.add.button(260, 240, 'highscore', this.creditsClick, this);
-	        }
-	        /*
-	        formClick(){
-	            console.log("form");
-	            this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this); 
-	        }*/
 
+	            this.buttonSound = this.game.add.audio('buttonsound');
+	            this.introSound = this.game.add.audio('musicsound');
+	            this.introSound.play();
+	            console.log(this.introSound);
+	            console.log(this.buttonSound);
+	        }
 	    }, {
 	        key: 'startClick',
 	        value: function startClick() {
+	            this.buttonSound.play();
 	            this.title.kill();
 	            this.startButton.kill();
 	            this.highscoreButton.kill();
@@ -678,11 +702,13 @@
 	    }, {
 	        key: 'startGame',
 	        value: function startGame() {
+	            this.buttonSound.play();
 	            this.game.state.start('Play');
 	        }
 	    }, {
 	        key: 'creditsClick',
 	        value: function creditsClick() {
+	            this.buttonSound.play();
 	            this.game.state.start('Credits');
 	        }
 	    }]);
@@ -728,15 +754,19 @@
 	            //START KNOP
 	            this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this);
 	            this.backButton = this.game.add.button(260, 240, 'back', this.backClick, this);
+
+	            this.buttonSound = this.game.add.audio('buttonsound');
 	        }
 	    }, {
 	        key: 'startClick',
 	        value: function startClick() {
+	            this.buttonSound.play();
 	            this.game.state.start('Play');
 	        }
 	    }, {
 	        key: 'backClick',
 	        value: function backClick() {
+	            this.buttonSound.play();
 	            this.game.state.start('Menu');
 	        }
 	    }]);
