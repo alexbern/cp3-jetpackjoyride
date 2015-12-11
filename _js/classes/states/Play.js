@@ -86,9 +86,9 @@ export default class Play extends Phaser.State{
             this.game.add.tween(this.bonusText).to({y:90, x:140}, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true); 
             //this.bonusText = this.game.add.text(180, 150, textArray[selectText], { font: "15px Arial", fill: "#ffffff", align: "center" });
             this.game.time.events.add(Phaser.Timer.SECOND * 2, this.deathBonus, this);
-            this.bonusState = 1;        
             this.randomTime = Phaser.Timer.SECOND * this.game.rnd.integerInRange(1,5);
-            this.bonusTeller = this.game.time.events.add(this.randomTime, this.bonusPoint, this);
+            this.score += this.randomTime;
+            this.bonusState = 1;        
         }
         //PLAYER GAMEPLAY
         if (this.player.body.wasTouching.down){
@@ -138,9 +138,6 @@ export default class Play extends Phaser.State{
     powerupHandler(){
         this.coins.kill(); 
         this.bonusPoint();
-    }
-    bonusPoint(){
-        this.score += this.randomTime;
     }
     deathBonus(){
         this.bonusState = 0;
