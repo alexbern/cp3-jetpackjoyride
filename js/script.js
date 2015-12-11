@@ -134,11 +134,10 @@
 	            this.load.atlasJSONArray('spritesheetCoins', 'assets/sprites/coinSpritesheet.png', 'assets/sprites/coinSpritesheet.json');
 	            this.load.atlasJSONArray('spritesheetMissile', 'assets/sprites/missileSpritesheet.png', 'assets/sprites/missileSpritesheet.json');
 
-	            this.load.audio('musicsound', 'assets/sound/music.wav');
+	            this.load.audio('musicsound', 'assets/sound/music.ogg');
 	            this.load.audio('missilesound', 'assets/sound/fire.wav');
 	            this.load.audio('buttonsound', 'assets/sound/knop.wav');
 	            this.load.audio('coinsound', 'assets/sound/coin.wav');
-	            this.load.audio('stapsound', 'assets/sound/stap.wav');
 	            this.load.audio('jetpacksound', 'assets/sound/jetpack.wav');
 
 	            this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
@@ -467,7 +466,6 @@
 			_this.animations.add('jump', [3]);
 			_this.animations.add('jetpack', [2]);
 
-			_this.stepSound = _this.game.add.audio('stapsound');
 			_this.jetpackSound = _this.game.add.audio('jetpacksound');
 
 			return _this;
@@ -478,7 +476,6 @@
 			value: function update() {
 				if (this.body.wasTouching.down) {
 					this.jumpCount = 0;
-					this.stepSound.play();
 					this.animations.play('run', 10, true);
 				}
 			}
@@ -679,9 +676,7 @@
 
 	            this.buttonSound = this.game.add.audio('buttonsound');
 	            this.introSound = this.game.add.audio('musicsound');
-	            this.introSound.play();
-	            console.log(this.introSound);
-	            console.log(this.buttonSound);
+	            this.introSound.play('', 0, 1, true);
 	        }
 	    }, {
 	        key: 'startClick',

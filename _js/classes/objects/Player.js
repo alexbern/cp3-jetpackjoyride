@@ -17,14 +17,12 @@ export default class Player extends Phaser.Sprite{
 		this.animations.add('jump', [3]);
 		this.animations.add('jetpack', [2]);
 
-		this.stepSound = this.game.add.audio('stapsound');
         this.jetpackSound = this.game.add.audio('jetpacksound');
 
 	}
 	update(){
 		if (this.body.wasTouching.down){
 			this.jumpCount = 0;
-			this.stepSound.play();
 			this.animations.play('run', 10, true);
 		}
 	}

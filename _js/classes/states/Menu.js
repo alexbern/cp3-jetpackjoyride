@@ -11,9 +11,7 @@ export default class Menu extends Phaser.State{
 
         this.buttonSound = this.game.add.audio('buttonsound');
         this.introSound = this.game.add.audio('musicsound');
-        this.introSound.play();
-        console.log(this.introSound);
-        console.log(this.buttonSound);
+        this.introSound.play('', 0, 1, true);
     }
     startClick() { 
         this.buttonSound.play();
