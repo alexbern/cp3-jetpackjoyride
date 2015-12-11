@@ -126,6 +126,9 @@
 	            this.load.image('play', 'assets/sprites/bplay.jpg');
 	            this.load.image('playagain', 'assets/sprites/bplayagain.png');
 	            this.load.image('back', 'assets/sprites/bback.jpg');
+	            this.load.image('welldone', 'assets/sprites/welldone.png');
+	            this.load.image('goodjob', 'assets/sprites/goodjob.png');
+	            this.load.image('nice', 'assets/sprites/nice.png');
 
 	            this.load.image('gameover', 'assets/sprites/gameover.png');
 	            this.load.image('howto', 'assets/sprites/howtoscreen.png');
@@ -244,10 +247,7 @@
 	            this.timerMissle.loop(this.intervalTimeMissle, this.initMissile, this);
 	            this.timerMissle.start();
 	            this.timerMissle = 2000;
-
-	            //this.introSound = this.game.add.audio('musicsound');
-	            //this.introSound.play();
-
+	            //SOUNDS
 	            this.coinSound = this.game.add.audio('coinsound');
 	        }
 	    }, {
@@ -285,9 +285,11 @@
 	            if (this.game.physics.arcade.collide(this.player, this.coins)) {
 	                this.coinSound.play();
 	                this.coins.kill();
-	                var textArray = ['GOOD JOB!', 'NICE', 'WELL DONE'];
+	                var textArray = ['goodjob', 'nice', 'welldone'];
 	                var selectText = this.game.rnd.integerInRange(0, 2);
-	                this.bonusText = this.game.add.text(180, 150, textArray[selectText], { font: "15px Arial", fill: "#ffffff", align: "center" });
+	                this.bonusText = this.game.add.sprite(150, 110, textArray[selectText]);
+	                this.game.add.tween(this.bonusText).to({ y: 90, x: 140 }, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
+	                //this.bonusText = this.game.add.text(180, 150, textArray[selectText], { font: "15px Arial", fill: "#ffffff", align: "center" });
 	                this.game.time.events.add(Phaser.Timer.SECOND * 2, this.deathBonus, this);
 	                this.bonusState = 1;
 	                this.randomTime = Phaser.Timer.SECOND * this.game.rnd.integerInRange(1, 5);
@@ -341,7 +343,6 @@
 	    }, {
 	        key: 'initMissile',
 	        value: function initMissile() {
-
 	            var randomPos = this.game.rnd.integerInRange(200, 80);
 	            this.position = randomPos;
 	            this.missile = new _Missile2.default(this.game, 420, randomPos);

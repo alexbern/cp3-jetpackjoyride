@@ -44,10 +44,7 @@ export default class Play extends Phaser.State{
         this.timerMissle.loop(this.intervalTimeMissle, this.initMissile, this);
         this.timerMissle.start();
         this.timerMissle = 2000;
-
-        //this.introSound = this.game.add.audio('musicsound');
-        //this.introSound.play();
-        
+        //SOUNDS
         this.coinSound = this.game.add.audio('coinsound');
     }
     update(){
@@ -83,9 +80,11 @@ export default class Play extends Phaser.State{
         if (this.game.physics.arcade.collide(this.player, this.coins)) {
             this.coinSound.play();
             this.coins.kill();
-            let textArray = ['GOOD JOB!','NICE','WELL DONE']; 
+            let textArray = ['goodjob','nice','welldone']; 
             let selectText = this.game.rnd.integerInRange(0, 2);
-            this.bonusText = this.game.add.text(180, 150, textArray[selectText], { font: "15px Arial", fill: "#ffffff", align: "center" });
+            this.bonusText = this.game.add.sprite(150,110,textArray[selectText]);
+            this.game.add.tween(this.bonusText).to({y:90, x:140}, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true); 
+            //this.bonusText = this.game.add.text(180, 150, textArray[selectText], { font: "15px Arial", fill: "#ffffff", align: "center" });
             this.game.time.events.add(Phaser.Timer.SECOND * 2, this.deathBonus, this);
             this.bonusState = 1;        
             this.randomTime = Phaser.Timer.SECOND * this.game.rnd.integerInRange(1,5);
@@ -128,8 +127,7 @@ export default class Play extends Phaser.State{
         this.coins = new Coins(this.game, 500, 100);
         this.add.existing(this.coins);
     }
-    initMissile(){
-        
+    initMissile(){ 
         let randomPos = this.game.rnd.integerInRange(200, 80);
         this.position = randomPos;
         this.missile = new Missile(this.game, 420, randomPos);
