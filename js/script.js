@@ -44,21 +44,29 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+	__webpack_require__(1);
+	module.exports = __webpack_require__(11);
+
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
-	var _Preload = __webpack_require__(1);
+	var _Preload = __webpack_require__(2);
 
 	var _Preload2 = _interopRequireDefault(_Preload);
 
-	var _Play = __webpack_require__(2);
+	var _Play = __webpack_require__(3);
 
 	var _Play2 = _interopRequireDefault(_Play);
 
-	var _Menu = __webpack_require__(8);
+	var _Menu = __webpack_require__(9);
 
 	var _Menu2 = _interopRequireDefault(_Menu);
 
-	var _Credits = __webpack_require__(9);
+	var _Credits = __webpack_require__(10);
 
 	var _Credits2 = _interopRequireDefault(_Credits);
 
@@ -77,7 +85,7 @@
 	init();
 
 /***/ },
-/* 1 */
+/* 2 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -141,7 +149,7 @@
 	exports.default = Preload;
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -152,23 +160,23 @@
 	    value: true
 	});
 
-	var _Ground = __webpack_require__(3);
+	var _Ground = __webpack_require__(4);
 
 	var _Ground2 = _interopRequireDefault(_Ground);
 
-	var _Player = __webpack_require__(4);
+	var _Player = __webpack_require__(5);
 
 	var _Player2 = _interopRequireDefault(_Player);
 
-	var _Platform = __webpack_require__(5);
+	var _Platform = __webpack_require__(6);
 
 	var _Platform2 = _interopRequireDefault(_Platform);
 
-	var _Coins = __webpack_require__(6);
+	var _Coins = __webpack_require__(7);
 
 	var _Coins2 = _interopRequireDefault(_Coins);
 
-	var _Missile = __webpack_require__(7);
+	var _Missile = __webpack_require__(8);
 
 	var _Missile2 = _interopRequireDefault(_Missile);
 
@@ -367,7 +375,7 @@
 	exports.default = Play;
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -404,7 +412,7 @@
 	exports.default = Ground;
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -472,7 +480,7 @@
 	exports.default = Player;
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -508,7 +516,7 @@
 	exports.default = Platform;
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -553,7 +561,7 @@
 	exports.default = Coins;
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -608,7 +616,7 @@
 	exports.default = Missile;
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -685,7 +693,7 @@
 	exports.default = Menu;
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -737,6 +745,12 @@
 	})(Phaser.State);
 
 	exports.default = Credits;
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 /******/ ]);
