@@ -143,6 +143,8 @@
 	            this.load.audio('coinsound', 'assets/sound/coin.wav');
 	            this.load.audio('jetpacksound', 'assets/sound/jetpack.wav');
 
+	            //this.game.load.bitmapFont('font', 'assets/font.png', 'assets/font.font');       
+
 	            this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
 	        }
 	    }, {
@@ -217,7 +219,7 @@
 	            this.cointimer = 0;
 	            this.coinTimeRange = 500;
 	            this.bonusTeller = 0;
-	            this.textBonus = this.game.add.text(100, 20, 'bonus: 0', { font: "15px Arial", fill: "#ffffff", align: "center" });
+	            this.textBonus = this.game.add.text(100, 20, 'bonus: 0', { font: 'Arial', fill: '#ffffff', align: 'center' });
 	            this.bonusView = this.textBonus.setText('bonus: 0');
 	            this.bonusState = 0;
 	            //DIFICULTY
@@ -226,7 +228,9 @@
 	            //BACKGROUND
 	            this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 	            this.background.autoScroll(-this.speed, 0);
-	            this.textScore = this.game.add.text(350, 20, 'score: 0', { font: "15px Arial", fill: "#ffffff", align: "center" });
+
+	            this.textScore = this.game.add.text(350, 20, '0', { font: 'Arial', fill: '#ffffff', align: 'center', fontSize: 22 });
+	            //this.textScore = this.game.add.bitmapText(350, 20, 'arial', 0, 8);
 	            //PLATFORMS
 	            this.platforms = this.game.add.group();
 	            this.intervalTime = 1400;
@@ -269,7 +273,7 @@
 	                this.score++;
 	            }
 	            //SCORE TEV SNELHEID
-	            this.scoreView = this.textScore.setText('score: ' + this.score);
+	            this.scoreView = this.textScore.setText(this.score);
 	            if (this.score / this.scoreRange == 1) {
 	                this.scoreRange += 500;
 	                this.speed += 20;
@@ -288,7 +292,7 @@
 	                var textArray = ['goodjob', 'nice', 'welldone'];
 	                var selectText = this.game.rnd.integerInRange(0, 2);
 	                this.bonusText = this.game.add.sprite(150, 110, textArray[selectText]);
-	                this.game.add.tween(this.bonusText).to({ y: 90, x: 140 }, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
+	                this.game.add.tween(this.bonusText).to({ y: 90 }, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
 	                //this.bonusText = this.game.add.text(180, 150, textArray[selectText], { font: "15px Arial", fill: "#ffffff", align: "center" });
 	                this.game.time.events.add(Phaser.Timer.SECOND * 2, this.deathBonus, this);
 	                this.randomTime = Phaser.Timer.SECOND * this.game.rnd.integerInRange(1, 5);
@@ -336,7 +340,6 @@
 	    }, {
 	        key: 'initCoins',
 	        value: function initCoins() {
-	            var coinGroup = undefined;
 	            this.coins = new _Coins2.default(this.game, 500, 100);
 	            this.add.existing(this.coins);
 	        }
@@ -366,7 +369,7 @@
 	        key: 'gameOver',
 	        value: function gameOver() {
 	            this.gameoverscreen = this.game.add.sprite(60, 40, 'gameover');
-	            this.finalscore = this.game.add.text(170, 140, 'your score: ' + this.score, { font: "20px Arial", fill: "#fff", align: "center" });
+	            this.finalscore = this.game.add.text(170, 140, 'your score: ' + this.score, { font: '20px Arial', fill: '#fff', align: 'center' });
 	            this.playagainButton = this.game.add.button(130, 190, 'playagain', this.startagainClick, this);
 	            this.player.kill();
 	            this.missile.kill();

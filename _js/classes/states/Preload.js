@@ -27,10 +27,12 @@ export default class Preload extends Phaser.State{
     this.load.audio('missilesound', 'assets/sound/fire.wav');  
     this.load.audio('buttonsound', 'assets/sound/knop.wav'); 
     this.load.audio('coinsound', 'assets/sound/coin.wav');  
-    this.load.audio('jetpacksound', 'assets/sound/jetpack.wav');      
-        
+    this.load.audio('jetpacksound', 'assets/sound/jetpack.wav'); 
+
+    //this.game.load.bitmapFont('font', 'assets/font.png', 'assets/font.font');        
+    
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
-    }
+    }  
     onLoadComplete(){
         this.game.state.start('Menu');
     }
