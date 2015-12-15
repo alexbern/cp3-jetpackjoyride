@@ -8,8 +8,12 @@
 </head>
 <body>
 	<script src="js/vendors/phaser.min.js"></script>
+
+	<main>
+		<?php echo $content; ?>
+	</main>
 	
-	<?php echo $content; ?>
+	
 
 </body>
 </html>

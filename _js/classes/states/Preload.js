@@ -36,6 +36,6 @@ export default class Preload extends Phaser.State{
     onLoadComplete(){
         this.introSound = this.game.add.audio('musicsound');
         this.introSound.play('', 0, 1, true);
-        this.game.state.start('Menu');
+        this.game.state.start('Play');
     }
 }

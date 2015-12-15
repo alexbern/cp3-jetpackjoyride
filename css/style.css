@@ -66,6 +66,10 @@ html {
 }
 
 body {
+  font-size: 62.5%;
+}
+
+main {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -78,6 +82,61 @@ body {
   height: 100%;
 }
 
-form {
+canvas {
+  position: relative;
+  top: 0px;
+  left: 0px;
+}
+
+.form-section {
+  position: absolute;
   display: none;
+  z-index: 1;
+  width: 480px;
+  height: 320px;
+  top: 0px;
+  left: 0px;
+  background-image: url("/assets/img/bg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.form-section .btn-submit {
+  background-color: #DDC001;
+  width: 100px;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-family: Helvetica, arial, sans-serif;
+  margin: 0 auto;
+  display: block;
+  font-size: 2em;
+  margin-top: 20px;
+}
+
+.form-section h3 {
+  margin: 0 auto;
+  text-align: center;
+  color: #DEC100;
+  font-size: 20px;
+  font-family: Helvetica, arial, sans-serif;
+}
+
+.form-section .score-message {
+  color: white;
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 20px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+#itemAddForm {
+  display: inline;
 }

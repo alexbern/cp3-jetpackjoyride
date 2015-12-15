@@ -5,12 +5,72 @@ html{
 }
 
 body{
+	font-size: 62.5%;
+}
+
+main{
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	height: 100%;
 }
 
-form{
-	display: none;
+canvas{
+	position: relative;
+	top: 0px;
+	left: 0px;
 }
+
+
+.form-section{
+	position: absolute;
+	display: none;
+	z-index: 1;
+	width: 480px;
+	height: 320px;
+	top: 0px;
+	left: 0px;
+	background-image: url('/assets/img/bg.png');
+	background-repeat: no-repeat;
+	background-position: center;
+
+	justify-content: center;
+	align-items: center;
+
+	.btn-submit{
+		background-color: #DDC001;
+		width: 100px;
+		padding: 8px;
+		border: none;
+		border-radius: 5px;
+		color: white;
+		font-family: Helvetica, arial, sans-serif;
+		margin: 0 auto;
+		display: block;
+		font-size: 2em;
+
+		margin-top: 20px;
+	}
+
+	h3{
+		margin: 0 auto;
+		text-align: center;
+		color: #DEC100;
+		font-size: 20px;
+		font-family: Helvetica, arial, sans-serif;
+	}
+
+	.score-message{
+		color: white;
+		font-family: Helvetica, arial, sans-serif;
+		font-size: 20px;
+		margin-top: 30px;
+		margin-bottom: 10px;
+	}
+
+}
+
+#itemAddForm{
+	display: inline;
+}
+

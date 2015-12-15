@@ -150,15 +150,42 @@ export default class Play extends Phaser.State{
     gameOver(){
         this.deadStatus = 1;
         this.misslestatus = 0;
-        this.gameoverscreen = this.game.add.sprite(60,40,'gameover');
-        this.finalscore = this.game.add.text(170, 140, 'your score: ' + this.score, { font: '20px Arial', fill: '#fff', align: 'center' });
-        this.playagainButton = this.game.add.button(130, 190, 'playagain', this.startagainClick, this); 
         this.player.kill();
         this.missile.kill();
         this.platform.kill();
         this.scoreView.kill();
-
         this.time.events.remove(this.timerMissle);
+
+        let $formSection = document.querySelector('.form-section');
+        let $form = document.querySelector('#itemAddForm');
+        $form.style.display = 'inline';
+        $formSection.style.display = 'flex';
+
+        let $scoretext = document.createElement('input');
+        $scoretext.type = 'number';
+        $scoretext.name = 'score';
+        $scoretext.value = this.score;
+        $scoretext.style.display = 'none';
+
+        $form.appendChild($scoretext);
+
+
+
+
+        console.log($scoretext.name);
+
+        
+
+
+        this.finalscore = this.game.add.text(170, 140, 'your score: ' + this.score, { font: '20px Arial', fill: '#fff', align: 'center' });
+
+
+        
+
+
+
+
+
        
     }
     startagainClick() { 

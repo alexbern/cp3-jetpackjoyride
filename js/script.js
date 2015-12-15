@@ -45,7 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	module.exports = __webpack_require__(11);
+	module.exports = __webpack_require__(12);
 
 
 /***/ },
@@ -70,7 +70,7 @@
 
 	var _Credits2 = _interopRequireDefault(_Credits);
 
-	var _Insert = __webpack_require__(13);
+	var _Insert = __webpack_require__(11);
 
 	var _Insert2 = _interopRequireDefault(_Insert);
 
@@ -157,7 +157,7 @@
 	        value: function onLoadComplete() {
 	            this.introSound = this.game.add.audio('musicsound');
 	            this.introSound.play('', 0, 1, true);
-	            this.game.state.start('Menu');
+	            this.game.state.start('Play');
 	        }
 	    }]);
 
@@ -380,15 +380,28 @@
 	        value: function gameOver() {
 	            this.deadStatus = 1;
 	            this.misslestatus = 0;
-	            this.gameoverscreen = this.game.add.sprite(60, 40, 'gameover');
-	            this.finalscore = this.game.add.text(170, 140, 'your score: ' + this.score, { font: '20px Arial', fill: '#fff', align: 'center' });
-	            this.playagainButton = this.game.add.button(130, 190, 'playagain', this.startagainClick, this);
 	            this.player.kill();
 	            this.missile.kill();
 	            this.platform.kill();
 	            this.scoreView.kill();
-
 	            this.time.events.remove(this.timerMissle);
+
+	            var $formSection = document.querySelector('.form-section');
+	            var $form = document.querySelector('#itemAddForm');
+	            $form.style.display = 'inline';
+	            $formSection.style.display = 'flex';
+
+	            var $scoretext = document.createElement('input');
+	            $scoretext.type = 'number';
+	            $scoretext.name = 'score';
+	            $scoretext.value = this.score;
+	            $scoretext.style.display = 'none';
+
+	            $form.appendChild($scoretext);
+
+	            console.log($scoretext.name);
+
+	            this.finalscore = this.game.add.text(170, 140, 'your score: ' + this.score, { font: '20px Arial', fill: '#fff', align: 'center' });
 	        }
 	    }, {
 	        key: 'startagainClick',
@@ -787,13 +800,6 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 12 */,
-/* 13 */
-/***/ function(module, exports) {
-
 	"use strict";
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -826,6 +832,12 @@
 	})(Phaser.State);
 
 	exports.default = Menu;
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 /******/ ]);
