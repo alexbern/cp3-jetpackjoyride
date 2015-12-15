@@ -404,12 +404,9 @@
 	            $scoretext.style.display = 'none';
 
 	            $form.appendChild($scoretext);
-<<<<<<< HEAD
-=======
 
 	            var $scoremsg = document.querySelector('.score-message');
 	            $scoremsg.innerHTML = 'Your score is: ' + this.score;
->>>>>>> 5ada6c0921165352d30b65527c7a22285582dd36
 	        }
 	    }, {
 	        key: 'startagainClick',
