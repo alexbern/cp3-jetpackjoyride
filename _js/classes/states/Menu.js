@@ -10,8 +10,6 @@ export default class Menu extends Phaser.State{
         this.highscoreButton = this.game.add.button(260, 240, 'highscore', this.creditsClick, this);
 
         this.buttonSound = this.game.add.audio('buttonsound');
-        this.introSound = this.game.add.audio('musicsound');
-        this.introSound.play('', 0, 1, true);
     }
     startClick() { 
         this.buttonSound.play();

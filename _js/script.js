@@ -2,6 +2,7 @@ import Preload from './classes/states/Preload';
 import Play from './classes/states/Play';
 import Menu from './classes/states/Menu';
 import Credits from './classes/states/Credits';
+import Insert from './classes/states/Insert';
 
 let game;
 
@@ -11,6 +12,7 @@ const init = () =>{
     game.state.add('Menu',Menu,false);
     game.state.add('Credits',Credits,false);
     game.state.add('Play',Play, false);
+    game.state.add('Insert', Insert, false);
 };
 
 init();

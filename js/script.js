@@ -70,6 +70,10 @@
 
 	var _Credits2 = _interopRequireDefault(_Credits);
 
+	var _Insert = __webpack_require__(13);
+
+	var _Insert2 = _interopRequireDefault(_Insert);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var game = undefined;
@@ -80,6 +84,7 @@
 	    game.state.add('Menu', _Menu2.default, false);
 	    game.state.add('Credits', _Credits2.default, false);
 	    game.state.add('Play', _Play2.default, false);
+	    game.state.add('Insert', _Insert2.default, false);
 	};
 
 	init();
@@ -150,6 +155,8 @@
 	    }, {
 	        key: 'onLoadComplete',
 	        value: function onLoadComplete() {
+	            this.introSound = this.game.add.audio('musicsound');
+	            this.introSound.play('', 0, 1, true);
 	            this.game.state.start('Menu');
 	        }
 	    }]);
@@ -249,10 +256,10 @@
 	            //MISSLES
 	            this.missiles = this.game.add.group();
 	            this.intervalTimeMissle = 3000;
-	            this.timerMissle = this.game.time.create(false);
-	            this.timerMissle.loop(this.intervalTimeMissle, this.initMissile, this);
-	            this.timerMissle.start();
-	            this.timerMissle = 2000;
+	            // this.timerMissle = this.game.time.create(false);
+	            this.timerMissle = this.time.events.loop(this.intervalTimeMissle, this.initMissile, this);
+	            // this.timerMissle.start();
+	            // this.timerMissle = 2000;
 
 	            //SOUNDS
 	            this.coinSound = this.game.add.audio('coinsound');
@@ -300,7 +307,7 @@
 	                this.game.add.tween(this.bonusText).to({ y: 90 }, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true);
 	                //this.bonusText = this.game.add.text(180, 150, textArray[selectText], { font: "15px Arial", fill: "#ffffff", align: "center" });
 	                this.game.time.events.add(Phaser.Timer.SECOND * 2, this.deathBonus, this);
-	                this.randomTime = Phaser.Timer.SECOND * this.game.rnd.integerInRange(1, 5);
+	                this.randomTime = Phaser.Timer.SECOND * this.game.rnd.integerInRange(1, 3);
 	                this.score += this.randomTime;
 	                this.bonusState = 1;
 	            }
@@ -361,7 +368,6 @@
 	        key: 'powerupHandler',
 	        value: function powerupHandler() {
 	            this.coins.kill();
-	            this.bonusPoint();
 	        }
 	    }, {
 	        key: 'deathBonus',
@@ -379,7 +385,10 @@
 	            this.playagainButton = this.game.add.button(130, 190, 'playagain', this.startagainClick, this);
 	            this.player.kill();
 	            this.missile.kill();
+	            this.platform.kill();
 	            this.scoreView.kill();
+
+	            this.time.events.remove(this.timerMissle);
 	        }
 	    }, {
 	        key: 'startagainClick',
@@ -680,8 +689,6 @@
 	            this.highscoreButton = this.game.add.button(260, 240, 'highscore', this.creditsClick, this);
 
 	            this.buttonSound = this.game.add.audio('buttonsound');
-	            this.introSound = this.game.add.audio('musicsound');
-	            this.introSound.play('', 0, 1, true);
 	        }
 	    }, {
 	        key: 'startClick',
@@ -781,6 +788,44 @@
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 12 */,
+/* 13 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Menu = (function (_Phaser$State) {
+		_inherits(Menu, _Phaser$State);
+
+		function Menu() {
+			_classCallCheck(this, Menu);
+
+			return _possibleConstructorReturn(this, Object.getPrototypeOf(Menu).apply(this, arguments));
+		}
+
+		_createClass(Menu, [{
+			key: "create",
+			value: function create() {}
+		}]);
+
+		return Menu;
+	})(Phaser.State);
+
+	exports.default = Menu;
 
 /***/ }
 /******/ ]);

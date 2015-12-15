@@ -44,10 +44,10 @@ export default class Play extends Phaser.State{
         //MISSLES
         this.missiles = this.game.add.group();
         this.intervalTimeMissle = 3000;
-        this.timerMissle = this.game.time.create(false);
-        this.timerMissle.loop(this.intervalTimeMissle, this.initMissile, this);
-        this.timerMissle.start();
-        this.timerMissle = 2000;
+        // this.timerMissle = this.game.time.create(false);
+        this.timerMissle = this.time.events.loop(this.intervalTimeMissle, this.initMissile, this);
+        // this.timerMissle.start();
+        // this.timerMissle = 2000;
        
         //SOUNDS
         this.coinSound = this.game.add.audio('coinsound');
@@ -56,7 +56,7 @@ export default class Play extends Phaser.State{
         //FYSICS
         this.game.physics.arcade.collide(this.player, this.ground);
         this.game.physics.arcade.collide(this.player, this.platforms);
-           //COLLISSION
+        //COLLISSION
         this.game.physics.arcade.collide(this.coins, this.platforms);
         if(this.missiles){
             let collideMissile = this.game.physics.arcade.collide(this.player, this.missiles);
@@ -93,7 +93,7 @@ export default class Play extends Phaser.State{
             this.game.add.tween(this.bonusText).to({y:90}, 500, Phaser.Easing.Linear.NONE, true, 0, 1000, true); 
             //this.bonusText = this.game.add.text(180, 150, textArray[selectText], { font: "15px Arial", fill: "#ffffff", align: "center" });
             this.game.time.events.add(Phaser.Timer.SECOND * 2, this.deathBonus, this);
-            this.randomTime = Phaser.Timer.SECOND * this.game.rnd.integerInRange(1,5);
+            this.randomTime = Phaser.Timer.SECOND * this.game.rnd.integerInRange(1,3);
             this.score += this.randomTime;
             this.bonusState = 1;        
         }
@@ -142,7 +142,6 @@ export default class Play extends Phaser.State{
     }
     powerupHandler(){
         this.coins.kill(); 
-        this.bonusPoint();
     }
     deathBonus(){
         this.bonusState = 0;
@@ -156,7 +155,11 @@ export default class Play extends Phaser.State{
         this.playagainButton = this.game.add.button(130, 190, 'playagain', this.startagainClick, this); 
         this.player.kill();
         this.missile.kill();
+        this.platform.kill();
         this.scoreView.kill();
+
+        this.time.events.remove(this.timerMissle);
+       
     }
     startagainClick() { 
         this.game.state.start('Play');
