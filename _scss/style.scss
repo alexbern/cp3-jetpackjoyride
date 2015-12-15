@@ -49,7 +49,7 @@ canvas{
 		display: block;
 		font-size: 2em;
 
-		margin-top: 20px;
+		margin-top: 5px;
 	}
 
 	h3{
@@ -64,10 +64,25 @@ canvas{
 		color: white;
 		font-family: Helvetica, arial, sans-serif;
 		font-size: 20px;
-		margin-top: 30px;
-		margin-bottom: 10px;
+		margin: 0 auto;
+		text-align: center;
+		padding-top: 25px;
+		margin-bottom: 5px;
+	}
+	
+	.name-label{
+		display: none;
 	}
 
+	#inputName{
+		border-radius: 5px;
+		margin-top: 10px;
+		padding: 7px;
+		border: none;
+		margin: 0 auto;
+		display: block;
+		text-align: center;
+	}
 }
 
 #itemAddForm{

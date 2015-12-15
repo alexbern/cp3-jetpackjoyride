@@ -399,9 +399,8 @@
 
 	            $form.appendChild($scoretext);
 
-	            console.log($scoretext.name);
-
-	            this.finalscore = this.game.add.text(170, 140, 'your score: ' + this.score, { font: '20px Arial', fill: '#fff', align: 'center' });
+	            var $scoremsg = document.querySelector('.score-message');
+	            $scoremsg.innerHTML = 'Your score is: ' + this.score;
 	        }
 	    }, {
 	        key: 'startagainClick',
