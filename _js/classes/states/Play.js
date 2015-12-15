@@ -6,6 +6,9 @@ import Missile from '../objects/Missile';
 
 export default class Play extends Phaser.State{
     create(){
+        let $scoreSection = document.querySelector('.highscore-section');
+        $scoreSection.style.display = 'none';
+
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         //SCORE
         this.score = 0;
@@ -168,25 +171,6 @@ export default class Play extends Phaser.State{
         $scoretext.style.display = 'none';
 
         $form.appendChild($scoretext);
-
-
-
-
-        console.log($scoretext.name);
-
-        
-
-
-        this.finalscore = this.game.add.text(170, 140, 'your score: ' + this.score, { font: '20px Arial', fill: '#fff', align: 'center' });
-
-
-        
-
-
-
-
-
-       
     }
     startagainClick() { 
         this.game.state.start('Play');

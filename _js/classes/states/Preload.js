@@ -10,6 +10,8 @@ export default class Preload extends Phaser.State{
     this.load.image('logo', 'assets/sprites/logo.png');
     this.load.image('highscore', 'assets/sprites/bhighscore.jpg');
     this.load.image('play', 'assets/sprites/bplay.jpg');
+    this.load.image('playyellow', 'assets/sprites/playYellow.png');
+    this.load.image('backyellow', 'assets/sprites/backYellow.png');
     this.load.image('playagain', 'assets/sprites/bplayagain.png');
     this.load.image('back', 'assets/sprites/bback.jpg');
     this.load.image('welldone', 'assets/sprites/welldone.png');
@@ -18,6 +20,7 @@ export default class Preload extends Phaser.State{
 
     this.load.image('gameover', 'assets/sprites/gameover.png');
     this.load.image('howto', 'assets/sprites/howtoscreen.png');
+    this.load.image('highscores', 'assets/sprites/highscoresscreen.png');
 
     this.load.atlasJSONArray('spritesheet', 'assets/sprites/spritesheet.png', 'assets/sprites/spritesheet.json');
     this.load.atlasJSONArray('spritesheetCoins', 'assets/sprites/coinSpritesheet.png', 'assets/sprites/coinSpritesheet.json');
@@ -36,6 +39,6 @@ export default class Preload extends Phaser.State{
     onLoadComplete(){
         this.introSound = this.game.add.audio('musicsound');
         this.introSound.play('', 0, 1, true);
-        this.game.state.start('Play');
+        this.game.state.start('Menu');
     }
 }

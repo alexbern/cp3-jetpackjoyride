@@ -18,6 +18,13 @@
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
+	public function selectTop(){
+		$sql = "SELECT * FROM `scores` ORDER BY score DESC LIMIT 3";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->execute(); 
+		return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+	}
+
 	public function insert($data) {
 		$errors = $this->getValidationErrors($data);
 		if(empty($errors)) {

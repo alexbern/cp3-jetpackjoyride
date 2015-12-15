@@ -1,5 +1,8 @@
 export default class Menu extends Phaser.State{
     create(){
+        let $scoreSection = document.querySelector('.highscore-section');
+        $scoreSection.style.display = 'none';
+        
         this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
         this.background.autoScroll(-15, 0);
         //TITLE

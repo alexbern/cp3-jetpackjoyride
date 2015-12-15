@@ -13,7 +13,7 @@
 		function index(){
 
 			$this->_processAddItemFormIfNeeded();
-			$scores = $this->scoreDAO->selectAll();
+			$scores = $this->scoreDAO->selectTop();
 			$this->set('scores', $scores);
 			
 		}

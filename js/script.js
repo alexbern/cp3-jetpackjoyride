@@ -129,6 +129,8 @@
 	            this.load.image('logo', 'assets/sprites/logo.png');
 	            this.load.image('highscore', 'assets/sprites/bhighscore.jpg');
 	            this.load.image('play', 'assets/sprites/bplay.jpg');
+	            this.load.image('playyellow', 'assets/sprites/playYellow.png');
+	            this.load.image('backyellow', 'assets/sprites/backYellow.png');
 	            this.load.image('playagain', 'assets/sprites/bplayagain.png');
 	            this.load.image('back', 'assets/sprites/bback.jpg');
 	            this.load.image('welldone', 'assets/sprites/welldone.png');
@@ -137,6 +139,7 @@
 
 	            this.load.image('gameover', 'assets/sprites/gameover.png');
 	            this.load.image('howto', 'assets/sprites/howtoscreen.png');
+	            this.load.image('highscores', 'assets/sprites/highscoresscreen.png');
 
 	            this.load.atlasJSONArray('spritesheet', 'assets/sprites/spritesheet.png', 'assets/sprites/spritesheet.json');
 	            this.load.atlasJSONArray('spritesheetCoins', 'assets/sprites/coinSpritesheet.png', 'assets/sprites/coinSpritesheet.json');
@@ -157,7 +160,7 @@
 	        value: function onLoadComplete() {
 	            this.introSound = this.game.add.audio('musicsound');
 	            this.introSound.play('', 0, 1, true);
-	            this.game.state.start('Play');
+	            this.game.state.start('Menu');
 	        }
 	    }]);
 
@@ -218,6 +221,9 @@
 	    _createClass(Play, [{
 	        key: 'create',
 	        value: function create() {
+	            var $scoreSection = document.querySelector('.highscore-section');
+	            $scoreSection.style.display = 'none';
+
 	            this.game.physics.startSystem(Phaser.Physics.ARCADE);
 	            //SCORE
 	            this.score = 0;
@@ -398,10 +404,6 @@
 	            $scoretext.style.display = 'none';
 
 	            $form.appendChild($scoretext);
-
-	            console.log($scoretext.name);
-
-	            this.finalscore = this.game.add.text(170, 140, 'your score: ' + this.score, { font: '20px Arial', fill: '#fff', align: 'center' });
 	        }
 	    }, {
 	        key: 'startagainClick',
@@ -692,6 +694,9 @@
 	    _createClass(Menu, [{
 	        key: 'create',
 	        value: function create() {
+	            var $scoreSection = document.querySelector('.highscore-section');
+	            $scoreSection.style.display = 'none';
+
 	            this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 	            this.background.autoScroll(-15, 0);
 	            //TITLE
@@ -770,10 +775,13 @@
 	        value: function create() {
 	            this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 	            this.background.autoScroll(-15, 0);
-
+	            this.highscorescreen = this.game.add.sprite(60, 40, 'highscores');
 	            //START KNOP
-	            this.startButton = this.game.add.button(100, 240, 'play', this.startClick, this);
-	            this.backButton = this.game.add.button(260, 240, 'back', this.backClick, this);
+	            this.startButton = this.game.add.button(100, 190, 'playyellow', this.startClick, this);
+	            this.backButton = this.game.add.button(260, 190, 'backyellow', this.backClick, this);
+
+	            var $scoreSection = document.querySelector('.highscore-section');
+	            $scoreSection.style.display = 'flex';
 
 	            this.buttonSound = this.game.add.audio('buttonsound');
 	        }
