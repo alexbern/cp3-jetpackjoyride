@@ -119,7 +119,12 @@ canvas {
   color: white;
   margin: 0 auto;
   display: block;
+<<<<<<< HEAD
   margin-top: 20px;
+=======
+  font-size: 2em;
+  margin-top: 5px;
+>>>>>>> 5ada6c0921165352d30b65527c7a22285582dd36
 }
 
 .form-section h3 {
@@ -133,8 +138,24 @@ canvas {
 .form-section .score-message {
   font-family: Helvetica, arial, sans-serif;
   font-size: 20px;
-  margin-top: 30px;
-  margin-bottom: 10px;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 25px;
+  margin-bottom: 5px;
+}
+
+.form-section .name-label {
+  display: none;
+}
+
+.form-section #inputName {
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 7px;
+  border: none;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
 }
 
 #itemAddForm {

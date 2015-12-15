@@ -171,6 +171,9 @@ export default class Play extends Phaser.State{
         $scoretext.style.display = 'none';
 
         $form.appendChild($scoretext);
+
+        let $scoremsg = document.querySelector('.score-message');
+        $scoremsg.innerHTML = 'Your score is: ' + this.score;
     }
     startagainClick() { 
         this.game.state.start('Play');
