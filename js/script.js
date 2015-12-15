@@ -224,20 +224,22 @@
 	            this.bonusState = 0;
 	            //DIFICULTY
 	            this.deadStatus = 0;
+	            this.misslestatus = 1;
 	            this.speed = 140;
 	            //BACKGROUND
 	            this.background = this.game.add.tileSprite(0, 0, 480, 320, 'background');
 	            this.background.autoScroll(-this.speed, 0);
-
 	            this.textScore = this.game.add.text(350, 20, '0', { font: 'Arial', fill: '#ffffff', align: 'center', fontSize: 22 });
 	            //this.textScore = this.game.add.bitmapText(350, 20, 'arial', 0, 8);
 	            //PLATFORMS
-	            this.platforms = this.game.add.group();
-	            this.intervalTime = 1400;
-	            this.timer = this.game.time.create(false);
-	            this.timer.loop(this.intervalTime, this.initPlatform, this);
-	            this.timer.start();
-	            this.timer = 500;
+	            if (this.deadStatus == 0) {
+	                this.platforms = this.game.add.group();
+	                this.intervalTime = 1400;
+	                this.timer = this.game.time.create(false);
+	                this.timer.loop(this.intervalTime, this.initPlatform, this);
+	                this.timer.start();
+	                this.timer = 500;
+	            }
 	            // this.platformGenerator = this.game.time.events.loop(Phaser.Timer.SECOND * this.intervalTime, this.initPlatform, this);
 	            //this.platformGenerator.timer.start();
 	            //STARTUP
@@ -251,6 +253,7 @@
 	            this.timerMissle.loop(this.intervalTimeMissle, this.initMissile, this);
 	            this.timerMissle.start();
 	            this.timerMissle = 2000;
+
 	            //SOUNDS
 	            this.coinSound = this.game.add.audio('coinsound');
 	        }
@@ -283,7 +286,9 @@
 	            this.cointimer++;
 	            if (this.cointimer / this.coinTimeRange == 1 && this.bonusState == 0) {
 	                this.coinTimeRange += this.game.rnd.integerInRange(100, 500);
-	                this.initCoins();
+	                if (this.deadStatus == 0) {
+	                    this.initCoins();
+	                }
 	            }
 	            //BONUSSES
 	            if (this.game.physics.arcade.collide(this.player, this.coins)) {
@@ -306,7 +311,6 @@
 	                this.player.body.velocity.x = 0;
 	            }
 	            if (this.player.y > 320) {
-	                this.deadStatus = 1;
 	                this.gameOver();
 	            }
 	            if (this.deadStatus == 0) {
@@ -368,6 +372,8 @@
 	    }, {
 	        key: 'gameOver',
 	        value: function gameOver() {
+	            this.deadStatus = 1;
+	            this.misslestatus = 0;
 	            this.gameoverscreen = this.game.add.sprite(60, 40, 'gameover');
 	            this.finalscore = this.game.add.text(170, 140, 'your score: ' + this.score, { font: '20px Arial', fill: '#fff', align: 'center' });
 	            this.playagainButton = this.game.add.button(130, 190, 'playagain', this.startagainClick, this);
