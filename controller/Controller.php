@@ -5,7 +5,13 @@ class Controller {
 	public $route;
 	protected $viewVars = array();
 
+	protected $isAjax = false;
+
 	public function filter() {
+		if(!empty($_SERVER['HTTP_X_REQUESTED_WITH'])
+				&& strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+			$this->isAjax = true;
+		}
 		call_user_func(array($this, $this->route['action']));
 	}
 

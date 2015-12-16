@@ -9,7 +9,7 @@
 		<!-- <?php if(!empty($errors['name'])) echo '<span class="help-block">' . $errors['name'] . '</span>'; ?> -->
 		</div>
 		<input type="hidden" name="action" value="add-score" />
-		<button type="submit" class="btn btn-submit">Menu</button>
+		<button type="submit" class="btn btn-submit">Submit &amp; Return</button>
 	</form>
 </section>
 <section class="highscore-section">

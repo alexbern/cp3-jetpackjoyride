@@ -11,6 +11,7 @@ export default class Credits extends Phaser.State{
         $scoreSection.style.display = 'flex';
 
         this.buttonSound = this.game.add.audio('buttonsound');
+        this.loadItems();
     }
     startClick() { 
         this.buttonSound.play();
@@ -20,5 +21,25 @@ export default class Credits extends Phaser.State{
         this.buttonSound.play();
         this.game.state.start('Menu');
     }
-
+    loadItems(){
+        let req = new XMLHttpRequest();
+        req.responseType = 'json';
+        req.onload = () => {
+          let itemsResultEl = document.querySelector('.highscore-section');
+          if(!req.response || req.response.length === 0) {
+            itemsResultEl.innerHTML = '<p>No Items In Database</p>';
+            return;
+          }
+          let resultHTML = '<ol>';
+          req.response.forEach(item => {
+            resultHTML += `<li>${item.name} - ${item.score}</li>`;
+          });
+          resultHTML += '</ol>';
+          itemsResultEl.innerHTML = resultHTML;
+        };
+        let url = `index.php?t=${Date.now()}`;
+        req.open('get', url, true);
+        req.setRequestHeader('X_REQUESTED_WITH', 'xmlhttprequest');
+        req.send();
+    }
 }
